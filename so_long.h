@@ -56,6 +56,10 @@ typedef struct s_data
 	void	*plant3;
 	void	*tile;
 	void	*hero;
+	int		col_cnt;
+	int		all_col;
+	int		walk_cnt;
+
 }			t_data;
 
 void		send_error_msg(char *s);
@@ -63,4 +67,7 @@ void		param_init(t_param *param);
 int			key_press(int keycode, t_data *env);
 char		*ft_strdup_without_newline(const char *s1);
 char		*ft_strjoin_without_newline(char *s1, char const *s2);
+
+void		clear_game(t_data *env);
+void		put_image_to_window(t_data *env);
 #endif

@@ -16,6 +16,18 @@ void	move_w(t_data *env)
 		if (env->total_line[i] == 'P')
 			break ;
 	}
+	if (env->total_line[i - env->width] == 'C')
+		env->col_cnt++;
+	if (env->total_line[i - env->width] == 'E' && env->all_col == env->col_cnt)
+		clear_game(env);
+	else if (env->total_line[i - env->width] != '1' && env->total_line[i
+		- env->width] != 'E')
+	{
+		env->total_line[i] = '0';
+		env->total_line[i - env->width] = 'P';
+		env->walk_cnt++;
+		put_image_to_window(env);
+	}
 	// if (env->total_line[i - env->width] == 'C')
 	// 	env->collect++;
 }

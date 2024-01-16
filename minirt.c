@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void	clear_game(t_data *env)
+{
+	exit(0);
+	env = NULL;
+}
 void	put_image_to_window(t_data *env)
 {
 	int	height;
@@ -45,7 +50,7 @@ void	put_image_to_window(t_data *env)
 			// else
 			// {
 			// 	mlx_put_image_to_window(env->mlx, env->win, env->tile, width
-			// 		* 32, height * 32);
+			// 		* 64, height * 64);
 			// }
 			width++;
 		}
