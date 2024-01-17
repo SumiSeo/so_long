@@ -135,21 +135,24 @@ static char	*initiate_position(char *filename, t_data *env)
 	int		j;
 
 	i = 0;
-	array = (char **)ft_calloc(env->width + 1, sizeof(char *));
+	array = (char **)malloc((env->height + 1) * sizeof(char *));
 	if (!array)
 		return (NULL);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
-		array[i] = (char *)malloc(sizeof(char) * 1);
+		array[i] = (char *)malloc((env->width + 1) * sizeof(char));
 		j = 0;
+		array[0][0] = 'c';
 		while (line[j])
 		{
 			array[i][j] = line[j];
-			printf("simple test %c\n", array[0][j]);
+			// 	printf("simple test %c\n", array[0][j]);
+			printf("what is line i '%d', j '%d'? '%c'\n", i, j, line[j]);
 			j++;
 		}
+		printf("****************");
 		i++;
 		line = get_next_line(fd);
 	}
