@@ -47,10 +47,7 @@ typedef struct s_data
 	void	*collect;
 	void	*bg;
 	void	*hero;
-	int		col_cnt;
-	int		all_col;
-	int		walk_cnt;
-
+	char	**position;
 }			t_data;
 
 void		send_error_msg(char *s);

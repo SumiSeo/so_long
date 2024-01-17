@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	move_w(t_data *env)
+void	move_up(t_data *env)
 {
 	size_t	i;
 
@@ -21,7 +21,7 @@ void	move_w(t_data *env)
 	printf("Where am I ?");
 }
 
-void	move_s(t_data *env)
+void	move_right(t_data *env)
 {
 	size_t	i;
 
@@ -33,7 +33,7 @@ void	move_s(t_data *env)
 	}
 }
 
-void	move_a(t_data *env)
+void	move_left(t_data *env)
 {
 	size_t	i;
 
@@ -47,7 +47,7 @@ void	move_a(t_data *env)
 	// 	env->collect++;
 }
 
-void	move_d(t_data *env)
+void	move_down(t_data *env)
 {
 	size_t	i;
 
@@ -64,14 +64,15 @@ void	move_d(t_data *env)
 int	key_press(int keycode, t_data *env)
 {
 	printf("Key pressed: %d\n", keycode);
+	// printf("current position %c\n", env->position[0][0]);
 	if (keycode == KEY_UP)
-		move_w(env);
+		move_up(env);
 	else if (keycode == KEY_RIGHT)
-		move_s(env);
+		move_right(env);
 	else if (keycode == KEY_LEFT)
-		move_a(env);
+		move_left(env);
 	else if (keycode == KEY_DOWN)
-		move_d(env);
+		move_down(env);
 	else if (keycode == KEY_ESC)
 		exit(0);
 	return (0);

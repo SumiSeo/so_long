@@ -51,7 +51,9 @@ void	display_game_to_window(t_data *env)
 		}
 		height++;
 	}
+	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, &env);
 }
+
 static void	initiate_characters(t_data *env)
 {
 	int	img_width;
@@ -78,7 +80,6 @@ static void	initiate_characters(t_data *env)
 			&img_height);
 	if (!env->bg)
 		printf("ERROR with plant3 mage");
-	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, &env);
 }
 
 static void	map_read(char *filename, t_data *env)
@@ -109,7 +110,6 @@ static void	map_read(char *filename, t_data *env)
 // 	int		**wall;
 // 	int		length;
 // 	int		i;
-
 // 	length = env->width * env->height;
 // 	wall = (int **)malloc(sizeof(int *) * length);
 // 	i = 0;
@@ -125,56 +125,54 @@ static void	map_read(char *filename, t_data *env)
 // 		line = get_next_line(fd);
 // 	}
 // }
-
-static char	*initiate_position(char *filename, t_data *env)
+static char	**initiate_position(char *filename, t_data *env)
 {
-	char	**array;
-	int		fd;
-	char	*line;
 	int		i;
+	int		fd;
+	char	**array;
+	char	*line;
 	int		j;
 
 	i = 0;
-	array = (char **)malloc((env->height + 1) * sizeof(char *));
+	array = (char **)malloc((env->height) * sizeof(char *));
 	if (!array)
 		return (NULL);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
-		array[i] = (char *)malloc((env->width + 1) * sizeof(char));
+		array[i] = (char *)malloc((env->width) * sizeof(char));
 		j = 0;
-		array[0][0] = 'c';
 		while (line[j])
 		{
 			array[i][j] = line[j];
-			// 	printf("simple test %c\n", array[0][j]);
-			printf("what is line i '%d', j '%d'? '%c'\n", i, j, line[j]);
+			printf("simple test %c\n", array[i][j]);
 			j++;
 		}
-		printf("****************");
-		i++;
+		printf("****************\n");
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return ("test");
+	return (array);
 }
 int	main(void)
 {
-	t_data env;
+	t_data *env;
 	char *filename;
 
-	filename = "./maps/t2.solong";
-	// env = (t_data *)malloc(sizeof(t_data));
-	// if (!env)
-	// 	free(env);
+	filename = "./maps/t1.solong";
+	env = (t_data *)malloc(sizeof(t_data));
+	if (!env)
+		free(env);
 
-	map_read(filename, &env);
+	map_read(filename, env);
 	// game_init(filename, &env);
-	initiate_characters(&env);
-	initiate_position(filename, &env);
-	display_game_to_window(&env);
-	mlx_loop(env.mlx);
-	free(env.total_line);
+
+	env->position = initiate_position(filename, env);
+	initiate_characters(env);
+	printf("current position %c\n", env->position[0][0]);
+	display_game_to_window(env);
+	mlx_loop(env->mlx);
+	free(env->total_line);
 	return (0);
 }
