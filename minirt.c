@@ -16,7 +16,7 @@ void	clear_game(t_data *env)
 	exit(0);
 	env = NULL;
 }
-void	put_image_to_window(t_data *env)
+void	display_game_to_window(t_data *env)
 {
 	int	height;
 	int	width;
@@ -52,7 +52,7 @@ void	put_image_to_window(t_data *env)
 		height++;
 	}
 }
-static void	map_init(t_data *env)
+static void	initiate_characters(t_data *env)
 {
 	int	img_width;
 	int	img_height;
@@ -100,31 +100,61 @@ static void	map_read(char *filename, t_data *env)
 			env->total_line = ft_strjoin_without_newline(env->total_line, line);
 		free(line);
 	}
-	printf("TEST %s\n", env->total_line);
 	close(fd);
 }
-void	game_init(char *filename, t_data *env)
+// void	game_init(char *filename, t_data *env)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		**wall;
+// 	int		length;
+// 	int		i;
+
+// 	length = env->width * env->height;
+// 	wall = (int **)malloc(sizeof(int *) * length);
+// 	i = 0;
+// 	fd = open(filename, O_RDONLY);
+// 	line = get_next_line(fd);
+// 	while (line)
+// 	{
+// 		while (line[i])
+// 		{
+// 			printf("Line 1 %c\n", line[i]);
+// 			i++;
+// 		}
+// 		line = get_next_line(fd);
+// 	}
+// }
+
+static char	*initiate_position(char *filename, t_data *env)
 {
+	char	**array;
 	int		fd;
 	char	*line;
-	int		**wall;
-	int		length;
 	int		i;
+	int		j;
 
-	length = env->width * env->height;
-	wall = (int **)malloc(sizeof(int *) * length);
 	i = 0;
+	array = (char **)ft_calloc(env->width + 1, sizeof(char *));
+	if (!array)
+		return (NULL);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
-		while (line[i])
+		array[i] = (char *)malloc(sizeof(char) * 1);
+		j = 0;
+		while (line[j])
 		{
-			printf("Line 1 %c\n", line[i]);
-			i++;
+			array[i][j] = line[j];
+			printf("simple test %c\n", array[0][j]);
+			j++;
 		}
+		i++;
 		line = get_next_line(fd);
 	}
+	close(fd);
+	return ("test");
 }
 int	main(void)
 {
@@ -137,9 +167,10 @@ int	main(void)
 	// 	free(env);
 
 	map_read(filename, &env);
-	game_init(filename, &env);
-	map_init(&env);
-	put_image_to_window(&env);
+	// game_init(filename, &env);
+	initiate_characters(&env);
+	initiate_position(filename, &env);
+	display_game_to_window(&env);
 	mlx_loop(env.mlx);
 	free(env.total_line);
 	return (0);
