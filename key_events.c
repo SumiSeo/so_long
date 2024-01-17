@@ -1,11 +1,5 @@
 #include "so_long.h"
 
-void	param_init(t_param *param)
-{
-	param->x = 3;
-	param->y = 4;
-}
-
 void	move_w(t_data *env)
 {
 	size_t	i;
@@ -13,23 +7,18 @@ void	move_w(t_data *env)
 	i = 0;
 	while (i++ < ft_strlen(env->total_line))
 	{
+		printf("How much %zu\n", ft_strlen(env->total_line));
 		if (env->total_line[i] == 'P')
+		{
+			printf("I am here");
 			break ;
+		}
+		else
+		{
+			printf("I am not here");
+		}
 	}
-	if (env->total_line[i - env->width] == 'C')
-		env->col_cnt++;
-	if (env->total_line[i - env->width] == 'E' && env->all_col == env->col_cnt)
-		clear_game(env);
-	else if (env->total_line[i - env->width] != '1' && env->total_line[i
-		- env->width] != 'E')
-	{
-		env->total_line[i] = '0';
-		env->total_line[i - env->width] = 'P';
-		env->walk_cnt++;
-		put_image_to_window(env);
-	}
-	// if (env->total_line[i - env->width] == 'C')
-	// 	env->collect++;
+	printf("Where am I ?");
 }
 
 void	move_s(t_data *env)
@@ -42,8 +31,6 @@ void	move_s(t_data *env)
 		if (env->total_line[i] == 'P')
 			break ;
 	}
-	// if (env->total_line[i - env->width] == 'C')
-	// 	env->collect++;
 }
 
 void	move_a(t_data *env)
