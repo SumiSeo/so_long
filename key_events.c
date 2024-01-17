@@ -64,13 +64,13 @@ void	move_d(t_data *env)
 int	key_press(int keycode, t_data *env)
 {
 	printf("Key pressed: %d\n", keycode);
-	if (keycode == KEY_W)
+	if (keycode == KEY_UP)
 		move_w(env);
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_RIGHT)
 		move_s(env);
-	else if (keycode == KEY_A)
+	else if (keycode == KEY_LEFT)
 		move_a(env);
-	else if (keycode == KEY_D)
+	else if (keycode == KEY_DOWN)
 		move_d(env);
 	else if (keycode == KEY_ESC)
 		exit(0);

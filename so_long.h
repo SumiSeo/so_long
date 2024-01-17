@@ -27,10 +27,10 @@
 # define X_EVENT_KEY_PRESS 3
 # define X_EVENT_KEY_RELEASE 2
 # define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 100
-# define KEY_D 115
+# define KEY_UP 65362
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define KEY_DOWN 65364
 
 typedef struct s_data
 {
@@ -44,11 +44,8 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 	void	*spike;
-	void	*hole;
-	void	*plant1;
-	void	*plant2;
-	void	*plant3;
-	void	*tile;
+	void	*collect;
+	void	*bg;
 	void	*hero;
 	int		col_cnt;
 	int		all_col;

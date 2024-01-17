@@ -34,7 +34,7 @@ void	put_image_to_window(t_data *env)
 			}
 			else if (env->total_line[height * env->width + width] == 'C')
 			{
-				mlx_put_image_to_window(env->mlx, env->win, env->plant1, width
+				mlx_put_image_to_window(env->mlx, env->win, env->collect, width
 					* 50, height * 50);
 			}
 			else if (env->total_line[height * env->width + width] == 'P')
@@ -44,8 +44,8 @@ void	put_image_to_window(t_data *env)
 			}
 			else
 			{
-				mlx_put_image_to_window(env->mlx, env->win, env->tile, width
-					* 50, height * 50);
+				mlx_put_image_to_window(env->mlx, env->win, env->bg, width * 50,
+					height * 50);
 			}
 			width++;
 		}
@@ -60,36 +60,23 @@ static void	map_init(t_data *env)
 	env->mlx = mlx_init();
 	if (!env->mlx)
 		printf("ERROR with connection");
-	env->win = mlx_new_window(env->mlx, 13 * 50, 5 * 50, "so long ~ ");
+	env->win = mlx_new_window(env->mlx, env->width * 50, env->height * 50,
+			"so long ~ ");
 	if (!env->win)
 		printf("ERROR with window");
 	env->spike = mlx_xpm_file_to_image(env->mlx, "./images/wallpaper.xpm",
 			&img_width, &img_height);
 	if (!env->spike)
 		printf("ERROR with spike mage");
-	env->hole = mlx_xpm_file_to_image(env->mlx, "./images/hole.xpm", &img_width,
-			&img_height);
-	if (!env->hole)
-		printf("ERROR with hole mage");
-	env->plant1 = mlx_xpm_file_to_image(env->mlx, "./images/light.xpm",
+	env->collect = mlx_xpm_file_to_image(env->mlx, "./images/light.xpm",
 			&img_width, &img_height);
-	if (!env->plant1)
-		printf("ERROR with plant1 mage");
-	env->plant2 = mlx_xpm_file_to_image(env->mlx, "./images/plant2.xpm",
-			&img_width, &img_height);
-	if (!env->plant2)
-		printf("ERROR with plant2 mage");
-	env->plant3 = mlx_xpm_file_to_image(env->mlx, "./images/plant3.xpm",
-			&img_width, &img_height);
-	if (!env->plant3)
-		printf("ERROR with plant3 mage");
 	env->hero = mlx_xpm_file_to_image(env->mlx, "./images/calcifer.xpm",
 			&img_width, &img_height);
 	if (!env->hero)
 		printf("ERROR with plant3 mage");
-	env->tile = mlx_xpm_file_to_image(env->mlx, "./images/bg.xpm", &img_width,
+	env->bg = mlx_xpm_file_to_image(env->mlx, "./images/bg.xpm", &img_width,
 			&img_height);
-	if (!env->hero)
+	if (!env->bg)
 		printf("ERROR with plant3 mage");
 	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, &env);
 }
@@ -144,7 +131,7 @@ int	main(void)
 	t_data env;
 	char *filename;
 
-	filename = "./maps/t1.solong";
+	filename = "./maps/t2.solong";
 	// env = (t_data *)malloc(sizeof(t_data));
 	// if (!env)
 	// 	free(env);
