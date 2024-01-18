@@ -59,5 +59,6 @@ char		*ft_strjoin_without_newline(char *s1, char const *s2);
 void		clear_game(t_data *env);
 void		put_image_to_window(t_data *env);
 void		display_game_to_window(t_data *env);
+void		find_cur_position(t_data *env);
 
 #endif

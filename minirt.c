@@ -145,18 +145,18 @@ void	find_cur_position(t_data *env)
 }
 int	main(void)
 {
-	t_data *env;
-	char *filename;
+	t_data	*env;
+	char	*filename;
 
-	filename = "./maps/t1.solong";
+	filename = "./maps/t2.solong";
 	env = (t_data *)malloc(sizeof(t_data));
 	if (!env)
 		free(env);
 	map_read(filename, env);
 	initiate_position(filename, env);
-	find_cur_position(env);
 	initiate_characters(env);
 	display_game_to_window(env);
 	mlx_loop(env->mlx);
 	free(env->total_line);
 	return (0);
+}
