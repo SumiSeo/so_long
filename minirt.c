@@ -103,28 +103,6 @@ static void	map_read(char *filename, t_data *env)
 	}
 	close(fd);
 }
-// void	game_init(char *filename, t_data *env)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		**wall;
-// 	int		length;
-// 	int		i;
-// 	length = env->width * env->height;
-// 	wall = (int **)malloc(sizeof(int *) * length);
-// 	i = 0;
-// 	fd = open(filename, O_RDONLY);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		while (line[i])
-// 		{
-// 			printf("Line 1 %c\n", line[i]);
-// 			i++;
-// 		}
-// 		line = get_next_line(fd);
-// 	}
-// }
 static void	initiate_position(char *filename, t_data *env)
 {
 	int		i;
@@ -144,16 +122,13 @@ static void	initiate_position(char *filename, t_data *env)
 		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			array[i][j] = line[j];
-			printf("array[i][j] : %c,  line[j] : %c\n", array[i][j], line[j]);
 			j++;
 		}
-		printf("****************\n");
 		i++;
 		line = get_next_line(fd);
 	}
 	close(fd);
 	env->position = array;
-	// return (array);
 }
 int	main(void)
 {
@@ -164,10 +139,7 @@ int	main(void)
 	env = (t_data *)malloc(sizeof(t_data));
 	if (!env)
 		free(env);
-
 	map_read(filename, env);
-	// game_init(filename, &env);
-
 	initiate_position(filename, env);
 	initiate_characters(env);
 	display_game_to_window(env);
