@@ -2,69 +2,43 @@
 
 void	move_up(t_data *env)
 {
-	size_t	i;
-
-	i = 0;
-	while (i++ < ft_strlen(env->total_line))
-	{
-		printf("How much %zu\n", ft_strlen(env->total_line));
-		if (env->total_line[i] == 'P')
-		{
-			printf("I am here");
-			break ;
-		}
-		else
-		{
-			printf("I am not here");
-		}
-	}
-	printf("Where am I ?");
+	printf("Env %d\n", env->width);
 }
 
 void	move_right(t_data *env)
 {
-	size_t	i;
-
-	i = 0;
-	while (i++ < ft_strlen(env->total_line))
-	{
-		if (env->total_line[i] == 'P')
-			break ;
-	}
+	printf("Env %d\n", env->width);
 }
 
 void	move_left(t_data *env)
 {
-	size_t	i;
-
-	i = 0;
-	while (i++ < ft_strlen(env->total_line))
-	{
-		if (env->total_line[i] == 'P')
-			break ;
-	}
+	// while (i++ < ft_strlen(env->total_line))
+	// {
+	// 	if (env->total_line[i] == 'P')
+	// 		break ;
+	// }
 	// if (env->total_line[i - env->width] == 'C')
 	// 	env->collect++;
+	printf("Env %d\n", env->width);
 }
 
 void	move_down(t_data *env)
 {
-	size_t	i;
-
-	i = 0;
-	while (i++ < ft_strlen(env->total_line))
-	{
-		if (env->total_line[i] == 'P')
-			break ;
-	}
+	// while (i++ < ft_strlen(env->total_line))
+	// {
+	// 	if (env->total_line[i] == 'P')
+	// 		break ;
+	// }
 	// if (env->total_line[i - env->width] == 'C')
 	// 	env->collect++;
+	printf("Env %d\n", env->width);
 }
 
 int	key_press(int keycode, t_data *env)
 {
 	printf("Key pressed: %d\n", keycode);
-	// printf("current position %c\n", env->position[0][0]);
+	printf("current position %c\n", env->position[0][0]);
+	printf("current position %c\n", env->position[1][0]);
 	if (keycode == KEY_UP)
 		move_up(env);
 	else if (keycode == KEY_RIGHT)

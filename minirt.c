@@ -51,7 +51,7 @@ void	display_game_to_window(t_data *env)
 		}
 		height++;
 	}
-	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, &env);
+	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
 }
 
 static void	initiate_characters(t_data *env)
@@ -125,7 +125,7 @@ static void	map_read(char *filename, t_data *env)
 // 		line = get_next_line(fd);
 // 	}
 // }
-static char	**initiate_position(char *filename, t_data *env)
+static void	initiate_position(char *filename, t_data *env)
 {
 	int		i;
 	int		fd;
@@ -135,25 +135,25 @@ static char	**initiate_position(char *filename, t_data *env)
 
 	i = 0;
 	array = (char **)malloc((env->height) * sizeof(char *));
-	if (!array)
-		return (NULL);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
-	while (line)
+	while (line && i < env->height)
 	{
-		array[i] = (char *)malloc((env->width) * sizeof(char));
+		array[i] = (char *)malloc((env->width + 1) * sizeof(char));
 		j = 0;
-		while (line[j])
+		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			array[i][j] = line[j];
-			printf("simple test %c\n", array[i][j]);
+			printf("array[i][j] : %c,  line[j] : %c\n", array[i][j], line[j]);
 			j++;
 		}
 		printf("****************\n");
+		i++;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (array);
+	env->position = array;
+	// return (array);
 }
 int	main(void)
 {
@@ -168,9 +168,8 @@ int	main(void)
 	map_read(filename, env);
 	// game_init(filename, &env);
 
-	env->position = initiate_position(filename, env);
+	initiate_position(filename, env);
 	initiate_characters(env);
-	printf("current position %c\n", env->position[0][0]);
 	display_game_to_window(env);
 	mlx_loop(env->mlx);
 	free(env->total_line);
