@@ -12,6 +12,11 @@ void	move_up(t_data *env)
 	{
 		env->position[env->cur_y - 1][env->cur_x] = '0';
 	}
+	else if (env->position[env->cur_y - 1][env->cur_x] == 'E')
+	{
+		env->position[env->cur_y - 1][env->cur_x] = '0';
+		exit(0);
+	}
 	display_game_to_window(env);
 }
 
@@ -26,6 +31,11 @@ void	move_right(t_data *env)
 	else if (env->position[env->cur_y][env->cur_x + 1] == 'C')
 	{
 		env->position[env->cur_y][env->cur_x + 1] = '0';
+	}
+	else if (env->position[env->cur_y][env->cur_x + 1] == 'E')
+	{
+		env->position[env->cur_y][env->cur_x + 1] = '0';
+		exit(0);
 	}
 	display_game_to_window(env);
 }
@@ -42,6 +52,11 @@ void	move_left(t_data *env)
 	{
 		env->position[env->cur_y][env->cur_x - 1] = '0';
 	}
+	else if (env->position[env->cur_y][env->cur_x - 1] == 'E')
+	{
+		env->position[env->cur_y][env->cur_x - 1] = '0';
+		exit(0);
+	}
 	display_game_to_window(env);
 }
 
@@ -56,6 +71,11 @@ void	move_down(t_data *env)
 	else if (env->position[env->cur_y + 1][env->cur_x] == 'C')
 	{
 		env->position[env->cur_y + 1][env->cur_x] = '0';
+	}
+	else if (env->position[env->cur_y + 1][env->cur_x] == 'E')
+	{
+		env->position[env->cur_y + 1][env->cur_x] = '0';
+		exit(0);
 	}
 	display_game_to_window(env);
 }

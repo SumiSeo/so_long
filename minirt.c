@@ -36,6 +36,9 @@ void	display_game_to_window(t_data *env)
 			else if (env->position[i][j] == 'P')
 				mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i
 					* 50);
+			else if (env->position[i][j] == 'E')
+				mlx_put_image_to_window(env->mlx, env->win, env->sortie, j * 50,
+					i * 50);
 			else
 			{
 				mlx_put_image_to_window(env->mlx, env->win, env->bg, j * 50, i
@@ -66,14 +69,20 @@ static void	initiate_characters(t_data *env)
 		printf("ERROR with spike mage");
 	env->collect = mlx_xpm_file_to_image(env->mlx, "./images/light.xpm",
 			&img_width, &img_height);
+	if (!env->collect)
+		printf("ERROR with collect mage");
 	env->hero = mlx_xpm_file_to_image(env->mlx, "./images/calcifer.xpm",
 			&img_width, &img_height);
 	if (!env->hero)
-		printf("ERROR with plant3 mage");
+		printf("ERROR with hero mage");
 	env->bg = mlx_xpm_file_to_image(env->mlx, "./images/bg.xpm", &img_width,
 			&img_height);
 	if (!env->bg)
-		printf("ERROR with plant3 mage");
+		printf("ERROR with bg mage");
+	env->sortie = mlx_xpm_file_to_image(env->mlx, "./images/sortie.xpm",
+			&img_width, &img_height);
+	if (!env->sortie)
+		printf("ERROR with sortie mage");
 }
 
 static void	map_read(char *filename, t_data *env)

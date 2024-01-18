@@ -47,7 +47,9 @@ typedef struct s_data
 	void	*collect;
 	void	*bg;
 	void	*hero;
+	void	*sortie;
 	char	**position;
+
 	int		cur_x;
 	int		cur_y;
 }			t_data;
