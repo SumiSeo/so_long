@@ -16,40 +16,40 @@ void	clear_game(t_data *env)
 	exit(0);
 	env = NULL;
 }
-void	display_game_to_window(t_data *env)
+void	display_game_to_window(char *filename, t_data *env)
 {
-	int	height;
-	int	width;
+	int		i;
+	char	*line;
+	int		fd;
+	int		j;
 
-	height = 0;
-	while (height < env->height)
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	i = 0;
+	while (i < env->height)
 	{
-		width = 0;
-		while (width < env->width)
+		j = 0;
+		while (j < env->width)
 		{
-			if (env->total_line[height * env->width + width] == '1')
-			{
-				mlx_put_image_to_window(env->mlx, env->win, env->spike, width
-					* 50, height * 50);
-			}
-			else if (env->total_line[height * env->width + width] == 'C')
-			{
-				mlx_put_image_to_window(env->mlx, env->win, env->collect, width
-					* 50, height * 50);
-			}
-			else if (env->total_line[height * env->width + width] == 'P')
-			{
-				mlx_put_image_to_window(env->mlx, env->win, env->hero, width
-					* 50, height * 50);
-			}
+			if (env->position[i][j] == '1')
+				mlx_put_image_to_window(env->mlx, env->win, env->spike, j * 50,
+					i * 50);
+			else if (env->position[i][j] == 'C')
+				mlx_put_image_to_window(env->mlx, env->win, env->collect, j
+					* 50, i * 50);
+			else if (env->position[env->cur_y][env->cur_x]
+				|| env->position[i][j] == 'P')
+				mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i
+					* 50);
 			else
 			{
-				mlx_put_image_to_window(env->mlx, env->win, env->bg, width * 50,
-					height * 50);
+				mlx_put_image_to_window(env->mlx, env->win, env->bg, j * 50, i
+					* 50);
 			}
-			width++;
+			j++;
 		}
-		height++;
+		i++;
+		line = get_next_line(fd);
 	}
 	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
 }
@@ -91,14 +91,11 @@ static void	map_read(char *filename, t_data *env)
 	line = get_next_line(fd);
 	env->width = ft_strlen(line) - 1;
 	env->height = 0;
-	env->total_line = ft_strdup_without_newline(line);
 	free(line);
 	while (line)
 	{
 		env->height += 1;
 		line = get_next_line(fd);
-		if (line)
-			env->total_line = ft_strjoin_without_newline(env->total_line, line);
 		free(line);
 	}
 	close(fd);
@@ -130,6 +127,28 @@ static void	initiate_position(char *filename, t_data *env)
 	close(fd);
 	env->position = array;
 }
+void	find_cur_position(t_data *env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < env->height)
+	{
+		j = 0;
+		while (j < env->width)
+		{
+			if (env->position[i][j] == 'P')
+			{
+				env->cur_x = j;
+				env->cur_y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+	printf("Currently I am here i : %d, j : %d\n", env->cur_x, env->cur_y);
+}
 int	main(void)
 {
 	t_data *env;
@@ -141,8 +160,9 @@ int	main(void)
 		free(env);
 	map_read(filename, env);
 	initiate_position(filename, env);
+	find_cur_position(env);
 	initiate_characters(env);
-	display_game_to_window(env);
+	display_game_to_window(filename, env);
 	mlx_loop(env->mlx);
 	free(env->total_line);
 	return (0);

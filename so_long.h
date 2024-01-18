@@ -48,6 +48,8 @@ typedef struct s_data
 	void	*bg;
 	void	*hero;
 	char	**position;
+	int		cur_x;
+	int		cur_y;
 }			t_data;
 
 void		send_error_msg(char *s);
@@ -56,6 +58,6 @@ char		*ft_strdup_without_newline(const char *s1);
 char		*ft_strjoin_without_newline(char *s1, char const *s2);
 void		clear_game(t_data *env);
 void		put_image_to_window(t_data *env);
-void		display_game_to_window(t_data *env);
+void		display_game_to_window(char *filename, t_data *env);
 
 #endif

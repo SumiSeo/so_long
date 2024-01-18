@@ -2,7 +2,11 @@
 
 void	move_up(t_data *env)
 {
-	printf("Env %d\n", env->width);
+	if (env->position[env->cur_y-1][env->cur_x] == '0')
+	{
+		env->cur_y = env->cur_y - 1;
+	}
+	printf("Currently I am here i : %d, j : %d\n", env->cur_x, env->cur_y);
 }
 
 void	move_right(t_data *env)
@@ -36,9 +40,6 @@ void	move_down(t_data *env)
 
 int	key_press(int keycode, t_data *env)
 {
-	printf("Key pressed: %d\n", keycode);
-	printf("current position %c\n", env->position[0][0]);
-	printf("current position %c\n", env->position[1][0]);
 	if (keycode == KEY_UP)
 		move_up(env);
 	else if (keycode == KEY_RIGHT)
