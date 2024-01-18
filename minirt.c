@@ -63,7 +63,7 @@ static void	initiate_characters(t_data *env)
 			"so long ~ ");
 	if (!env->win)
 		printf("ERROR with window");
-	env->spike = mlx_xpm_file_to_image(env->mlx, "./images/wallpaper.xpm",
+	env->spike = mlx_xpm_file_to_image(env->mlx, "./images/cloud.xpm",
 			&img_width, &img_height);
 	if (!env->spike)
 		printf("ERROR with spike mage");
@@ -157,7 +157,7 @@ int	main(void)
 	t_data	*env;
 	char	*filename;
 
-	filename = "./maps/t2.solong";
+	filename = "./maps/t1.solong";
 	env = (t_data *)malloc(sizeof(t_data));
 	if (!env)
 		free(env);
