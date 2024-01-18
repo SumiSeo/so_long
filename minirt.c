@@ -16,15 +16,11 @@ void	clear_game(t_data *env)
 	exit(0);
 	env = NULL;
 }
-void	display_game_to_window(char *filename, t_data *env)
+void	display_game_to_window(t_data *env)
 {
-	int		i;
-	char	*line;
-	int		fd;
-	int		j;
+	int	i;
+	int	j;
 
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
 	i = 0;
 	while (i < env->height)
 	{
@@ -37,8 +33,7 @@ void	display_game_to_window(char *filename, t_data *env)
 			else if (env->position[i][j] == 'C')
 				mlx_put_image_to_window(env->mlx, env->win, env->collect, j
 					* 50, i * 50);
-			else if (env->position[env->cur_y][env->cur_x]
-				|| env->position[i][j] == 'P')
+			else if (env->position[i][j] == 'P')
 				mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i
 					* 50);
 			else
@@ -49,7 +44,6 @@ void	display_game_to_window(char *filename, t_data *env)
 			j++;
 		}
 		i++;
-		line = get_next_line(fd);
 	}
 	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
 }
@@ -162,8 +156,7 @@ int	main(void)
 	initiate_position(filename, env);
 	find_cur_position(env);
 	initiate_characters(env);
-	display_game_to_window(filename, env);
+	display_game_to_window(env);
 	mlx_loop(env->mlx);
 	free(env->total_line);
 	return (0);
-}

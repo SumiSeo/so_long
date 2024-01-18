@@ -2,9 +2,11 @@
 
 void	move_up(t_data *env)
 {
-	if (env->position[env->cur_y-1][env->cur_x] == '0')
+	if (env->position[env->cur_y - 1][env->cur_x] == '0')
 	{
-		env->cur_y = env->cur_y - 1;
+		env->position[env->cur_y - 1][env->cur_x] = 'P';
+		env->position[env->cur_y][env->cur_x] = '0';
+		display_game_to_window(env);
 	}
 	printf("Currently I am here i : %d, j : %d\n", env->cur_x, env->cur_y);
 }
