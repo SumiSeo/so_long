@@ -70,23 +70,23 @@ static void	initiate_characters(t_data *env)
 			"so long ~ ");
 	if (!env->win)
 		printf("ERROR with window");
-	env->spike = mlx_xpm_file_to_image(env->mlx, "./images/cloud.xpm",
+	env->spike = mlx_xpm_file_to_image(env->mlx, "./textures/cloud.xpm",
 			&img_width, &img_height);
 	if (!env->spike)
 		printf("ERROR with spike mage");
-	env->collect = mlx_xpm_file_to_image(env->mlx, "./images/light.xpm",
+	env->collect = mlx_xpm_file_to_image(env->mlx, "./textures/light.xpm",
 			&img_width, &img_height);
 	if (!env->collect)
 		printf("ERROR with collect mage");
-	env->hero = mlx_xpm_file_to_image(env->mlx, "./images/calcifer.xpm",
+	env->hero = mlx_xpm_file_to_image(env->mlx, "./textures/calcifer.xpm",
 			&img_width, &img_height);
 	if (!env->hero)
 		printf("ERROR with hero mage");
-	env->bg = mlx_xpm_file_to_image(env->mlx, "./images/bg.xpm", &img_width,
+	env->bg = mlx_xpm_file_to_image(env->mlx, "./textures/bg.xpm", &img_width,
 			&img_height);
 	if (!env->bg)
 		printf("ERROR with bg mage");
-	env->sortie = mlx_xpm_file_to_image(env->mlx, "./images/sortie.xpm",
+	env->sortie = mlx_xpm_file_to_image(env->mlx, "./textures/sortie.xpm",
 			&img_width, &img_height);
 	if (!env->sortie)
 		printf("ERROR with sortie mage");
