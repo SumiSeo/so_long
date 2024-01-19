@@ -49,7 +49,6 @@ typedef struct s_data
 	void	*hero;
 	void	*sortie;
 	char	**position;
-
 	int		cur_x;
 	int		cur_y;
 }			t_data;

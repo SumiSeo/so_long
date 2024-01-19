@@ -157,7 +157,6 @@ void	find_cur_position(t_data *env)
 		}
 		i++;
 	}
-	printf("Currently I am here i : %d, j : %d\n", env->cur_x, env->cur_y);
 }
 int	main(void)
 {
