@@ -118,6 +118,7 @@ static void	initiate_position(char *filename, t_data *env)
 	char	*line;
 	int		j;
 
+	env->count = 0;
 	i = 0;
 	array = (char **)malloc((env->height) * sizeof(char *));
 	fd = open(filename, O_RDONLY);
@@ -157,6 +158,7 @@ void	find_cur_position(t_data *env)
 		}
 		i++;
 	}
+	env->count++;
 }
 int	main(void)
 {

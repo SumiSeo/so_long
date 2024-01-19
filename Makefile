@@ -17,6 +17,7 @@ NAME = so_long
 #
 SRCS = minirt.c get_next_line.c get_next_line_utils.c send_error_msg.c key_events.c utils/map_parsing.c
 INCLUDES = minilibx/
+INCLUDES2 =printf/
 OBJS = $(SRCS:%.c=%.o)
 
 #
@@ -25,7 +26,7 @@ OBJS = $(SRCS:%.c=%.o)
 
 CC = clang
 CFLAGS = -Wall -Werror -Wextra
-CLIB = -Lminilibx/ -lmlx -lmlx_Linux -Iminilibx -lX11 -lXext 
+CLIB = -Lminilibx/ -lmlx -lmlx_Linux -Iminilibx -lX11 -lXext -Lprintf/ -lftprintf
 DEBUGGER = -g3
 
 
@@ -36,7 +37,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C minilibx
-	$(CC) $(CFLAGS) -I $(INCLUDES) $(OBJS) -o $(NAME) $(CLIB) $(DEBUGGER)
+	make -C printf
+	$(CC) $(CFLAGS) -I $(INCLUDES) -I $(INCLUDES2) $(OBJS) -o $(NAME) $(CLIB) $(DEBUGGER)
 
 clean :
 	rm -rf $(OBJS)

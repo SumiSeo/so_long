@@ -40,15 +40,13 @@ typedef struct s_data
 	char	*total_line;
 	int		width;
 	int		height;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
 	void	*spike;
 	void	*collect;
 	void	*bg;
 	void	*hero;
 	void	*sortie;
 	char	**position;
+	int		count;
 	int		cur_x;
 	int		cur_y;
 }			t_data;
