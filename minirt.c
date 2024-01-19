@@ -159,6 +159,7 @@ void	find_cur_position(t_data *env)
 		i++;
 	}
 	env->count++;
+	ft_printf("Calcifer is moving this much : %d\n", env->count);
 }
 int	main(void)
 {
