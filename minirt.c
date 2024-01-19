@@ -16,6 +16,12 @@ void	clear_game(t_data *env)
 	exit(0);
 	env = NULL;
 }
+
+static int	mouse_event(t_data *env)
+{
+	clear_game(env);
+	return (0);
+}
 void	display_game_to_window(t_data *env)
 {
 	int	i;
@@ -49,6 +55,7 @@ void	display_game_to_window(t_data *env)
 		i++;
 	}
 	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
+	mlx_hook(env->win, 17, 0, &mouse_event, env);
 }
 
 static void	initiate_characters(t_data *env)
@@ -157,7 +164,7 @@ int	main(void)
 	t_data	*env;
 	char	*filename;
 
-	filename = "./maps/t1.solong";
+	filename = "./maps/t2.solong";
 	env = (t_data *)malloc(sizeof(t_data));
 	if (!env)
 		free(env);
