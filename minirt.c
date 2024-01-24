@@ -13,8 +13,15 @@
 
 void	clear_game(t_data *env)
 {
+	perror("errroro occured");
+	mlx_destroy_window(env->mlx, env->win);
+	mlx_destry_image(env, env->spike);
+	mlx_destroy_image(env, env->collect);
+	mlx_destroy_image(env, env->hero);
+	mlx_destroy_image(env, env->bg);
+	mlx_destroy_image(env, env->sortie);
+	free(env->mlx);
 	exit(0);
-	env = NULL;
 }
 
 static int	mouse_event(t_data *env)
@@ -63,31 +70,31 @@ static void	initiate_characters(t_data *env)
 
 	env->mlx = mlx_init();
 	if (!env->mlx)
-		printf("ERROR with connection");
+		clear_game(env);
 	env->win = mlx_new_window(env->mlx, env->width * 50, env->height * 50,
 			"so long ~ ");
 	if (!env->win)
-		printf("ERROR with window");
+		clear_game(env);
 	env->spike = mlx_xpm_file_to_image(env->mlx, "./textures/cloud.xpm",
 			&img_width, &img_height);
 	if (!env->spike)
-		printf("ERROR with spike mage");
+		clear_game(env);
 	env->collect = mlx_xpm_file_to_image(env->mlx, "./textures/light.xpm",
 			&img_width, &img_height);
 	if (!env->collect)
-		printf("ERROR with collect mage");
+		clear_game(env);
 	env->hero = mlx_xpm_file_to_image(env->mlx, "./textures/calcifer.xpm",
 			&img_width, &img_height);
 	if (!env->hero)
-		printf("ERROR with hero mage");
+		clear_game(env);
 	env->bg = mlx_xpm_file_to_image(env->mlx, "./textures/bg.xpm", &img_width,
 			&img_height);
 	if (!env->bg)
-		printf("ERROR with bg mage");
+		clear_game(env);
 	env->sortie = mlx_xpm_file_to_image(env->mlx, "./textures/sortie.xpm",
 			&img_width, &img_height);
 	if (!env->sortie)
-		printf("ERROR with sortie mage");
+		clear_game(env);
 }
 
 static void	map_read(char *filename, t_data *env)
@@ -164,7 +171,7 @@ int	main(void)
 	t_data	*env;
 	char	*filename;
 
-	filename = "./maps/t2.solong";
+	filename = "./maps/t2.ber";
 	env = (t_data *)malloc(sizeof(t_data));
 	if (!env)
 		free(env);
@@ -177,6 +184,10 @@ int	main(void)
 	mlx_loop(env->mlx);
 	free(env->mlx);
 	mlx_destroy_window(env, env->win);
-	// mlx_destroy_display
+	mlx_destry_image(env, env->spike);
+	mlx_destroy_image(env, env->collect);
+	mlx_destroy_image(env, env->hero);
+	mlx_destroy_image(env, env->bg);
+	mlx_destroy_image(env, env->sortie);
 	return (0);
 }
