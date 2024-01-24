@@ -54,8 +54,6 @@ void	display_game_to_window(t_data *env)
 		}
 		i++;
 	}
-	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
-	mlx_hook(env->win, 17, 0, &mouse_event, env);
 }
 
 static void	initiate_characters(t_data *env)
@@ -174,7 +172,11 @@ int	main(void)
 	initiate_position(filename, env);
 	initiate_characters(env);
 	display_game_to_window(env);
+	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
+	mlx_hook(env->win, 17, 0, &mouse_event, env);
 	mlx_loop(env->mlx);
-	free(env->total_line);
+	free(env->mlx);
+	mlx_destroy_window(env, env->win);
+	// mlx_destroy_display
 	return (0);
 }

@@ -37,8 +37,6 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	void	*addr;
-	char	*total_line;
 	int		width;
 	int		height;
 	void	*spike;
