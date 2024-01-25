@@ -13,18 +13,30 @@
 
 void	clear_game(t_data *env)
 {
+	int	i;
+
+	mlx_destroy_image(env->mlx, env->spike);
+	mlx_destroy_image(env->mlx, env->collect);
+	mlx_destroy_image(env->mlx, env->hero);
+	mlx_destroy_image(env->mlx, env->bg);
+	mlx_destroy_image(env->mlx, env->sortie);
+	mlx_destroy_window(env->mlx, env->win);
+	mlx_destroy_display(env->mlx);
+	i = 0;
+	while (i < env->height)
+	{
+		free(env->position[i]);
+		i++;
+	}
+	free(env->position);
 	free(env->mlx);
-	mlx_destroy_window(env, env->win);
-	mlx_destroy_image(env, env->spike);
-	mlx_destroy_image(env, env->collect);
-	mlx_destroy_image(env, env->hero);
-	mlx_destroy_image(env, env->bg);
-	mlx_destroy_image(env, env->sortie);
+	free(env);
+	exit(0);
 }
 
-static int	mouse_event(void)
+static int	mouse_event(t_data *env)
 {
-	exit(0);
+	clear_game(env);
 	return (0);
 }
 void	display_game_to_window(t_data *env)
@@ -72,27 +84,27 @@ static void	initiate_characters(t_data *env)
 	env->win = mlx_new_window(env->mlx, env->width * 50, env->height * 50,
 			"so long ~ ");
 	if (!env->win)
-		mlx_destroy_window(env, env->win);
+		mlx_destroy_window(env->mlx, env->win);
 	env->spike = mlx_xpm_file_to_image(env->mlx, "./textures/cloud.xpm",
 			&img_width, &img_height);
 	if (!env->spike)
-		mlx_destroy_image(env, env->spike);
+		mlx_destroy_image(env->mlx, env->spike);
 	env->collect = mlx_xpm_file_to_image(env->mlx, "./textures/light.xpm",
 			&img_width, &img_height);
 	if (!env->collect)
-		mlx_destroy_image(env, env->collect);
+		mlx_destroy_image(env->mlx, env->collect);
 	env->hero = mlx_xpm_file_to_image(env->mlx, "./textures/calcifer.xpm",
 			&img_width, &img_height);
 	if (!env->hero)
-		mlx_destroy_image(env, env->hero);
+		mlx_destroy_image(env->mlx, env->hero);
 	env->bg = mlx_xpm_file_to_image(env->mlx, "./textures/bg.xpm", &img_width,
 			&img_height);
 	if (!env->bg)
-		mlx_destroy_image(env, env->bg);
+		mlx_destroy_image(env->mlx, env->bg);
 	env->sortie = mlx_xpm_file_to_image(env->mlx, "./textures/sortie.xpm",
 			&img_width, &img_height);
 	if (!env->sortie)
-		mlx_destroy_image(env, env->sortie);
+		mlx_destroy_image(env->mlx, env->sortie);
 }
 
 static void	map_read(char *filename, t_data *env)
@@ -136,6 +148,7 @@ static void	initiate_position(char *filename, t_data *env)
 			j++;
 		}
 		i++;
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
@@ -180,6 +193,5 @@ int	main(void)
 	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
 	mlx_hook(env->win, 17, 0, &mouse_event, env);
 	mlx_loop(env->mlx);
-	clear_game(env);
 	return (0);
 }
