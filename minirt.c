@@ -177,21 +177,25 @@ void	find_cur_position(t_data *env)
 	env->count++;
 	ft_printf("Calcifer is moving this much : %d\n", env->count);
 }
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*env;
 	char	*filename;
 
-	filename = "./maps/t2.ber";
-	env = (t_data *)malloc(sizeof(t_data));
-	if (!env)
-		free(env);
-	map_read(filename, env);
-	initiate_position(filename, env);
-	initiate_characters(env);
-	display_game_to_window(env);
-	mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
-	mlx_hook(env->win, 17, 0, &mouse_event, env);
-	mlx_loop(env->mlx);
+
+	if (argc == 2)
+	{
+		filename = argv[1];
+		env = (t_data *)malloc(sizeof(t_data));
+		if (!env)
+			free(env);
+		map_read(filename, env);
+		initiate_position(filename, env);
+		initiate_characters(env);
+		display_game_to_window(env);
+		mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
+		mlx_hook(env->win, 17, 0, &mouse_event, env);
+		mlx_loop(env->mlx);
+	}
 	return (0);
 }
