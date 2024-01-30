@@ -11,8 +11,10 @@ void	move_up(t_data *env)
 	else if (env->position[env->cur_y - 1][env->cur_x] == 'C')
 	{
 		env->position[env->cur_y - 1][env->cur_x] = '0';
+		env->total_collec--;
 	}
-	else if (env->position[env->cur_y - 1][env->cur_x] == 'E')
+	else if (env->position[env->cur_y - 1][env->cur_x] == 'E'
+		&& env->total_collec == 0)
 	{
 		env->position[env->cur_y - 1][env->cur_x] = '0';
 		clear_game(env);
@@ -31,8 +33,10 @@ void	move_right(t_data *env)
 	else if (env->position[env->cur_y][env->cur_x + 1] == 'C')
 	{
 		env->position[env->cur_y][env->cur_x + 1] = '0';
+		env->total_collec--;
 	}
-	else if (env->position[env->cur_y][env->cur_x + 1] == 'E')
+	else if (env->position[env->cur_y][env->cur_x + 1] == 'E'
+		&& env->total_collec == 0)
 	{
 		env->position[env->cur_y][env->cur_x + 1] = '0';
 		clear_game(env);
@@ -51,8 +55,10 @@ void	move_left(t_data *env)
 	else if (env->position[env->cur_y][env->cur_x - 1] == 'C')
 	{
 		env->position[env->cur_y][env->cur_x - 1] = '0';
+		env->total_collec--;
 	}
-	else if (env->position[env->cur_y][env->cur_x - 1] == 'E')
+	else if (env->position[env->cur_y][env->cur_x - 1] == 'E'
+		&& env->total_collec == 0)
 	{
 		env->position[env->cur_y][env->cur_x - 1] = '0';
 		clear_game(env);
@@ -71,8 +77,10 @@ void	move_down(t_data *env)
 	else if (env->position[env->cur_y + 1][env->cur_x] == 'C')
 	{
 		env->position[env->cur_y + 1][env->cur_x] = '0';
+		env->total_collec--;
 	}
-	else if (env->position[env->cur_y + 1][env->cur_x] == 'E')
+	else if (env->position[env->cur_y + 1][env->cur_x] == 'E'
+		&& env->total_collec == 0)
 	{
 		env->position[env->cur_y + 1][env->cur_x] = '0';
 		clear_game(env);

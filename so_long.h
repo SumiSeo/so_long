@@ -48,6 +48,10 @@ typedef struct s_data
 	int		count;
 	int		cur_x;
 	int		cur_y;
+	int		total_collec;
+	int 	total_escape;
+	int 	total_hero;
+	
 }			t_data;
 
 void		send_error_msg(char *s);

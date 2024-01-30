@@ -145,12 +145,31 @@ static void	initiate_position(char *filename, t_data *env)
 		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			array[i][j] = line[j];
+			if (line[j] == 'C')
+				env->total_collec++;
+			if (line[j] == 'E')
+				env->total_escape++;
+			if (line[j] == 'P')
+				env->total_hero++;
+			if (env->total_hero >= 2)
+			{
+				printf("OOPS ! ONLY  ONE hero can exist");
+				free(env);
+				exit(1);
+			}
+			if (env->total_escape >= 2)
+			{
+				printf("OOPS ! ONLY  ONE excape can exist");
+				free(env);
+				exit(1);
+			}
 			j++;
 		}
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
+	printf("Total collec %d\n", env->total_collec);
 	close(fd);
 	env->position = array;
 }
@@ -181,7 +200,6 @@ int	main(int argc, char **argv)
 {
 	t_data	*env;
 	char	*filename;
-
 
 	if (argc == 2)
 	{
