@@ -125,6 +125,18 @@ static void	map_read(char *filename, t_data *env)
 	}
 	close(fd);
 }
+static char	**free_array(char **array, int count)
+{
+	while (count >= 0)
+	{
+		free(array[count]);
+		array[count] = NULL; // Set to NULL before freeing
+		count--;
+	}
+	free(array);
+	return (NULL);
+}
+
 static void	initiate_position(char *filename, t_data *env)
 {
 	int		i;
@@ -134,6 +146,9 @@ static void	initiate_position(char *filename, t_data *env)
 	int		j;
 
 	env->count = 0;
+	env->total_collec = 0;
+	env->total_escape = 0;
+	env->total_hero = 0;
 	i = 0;
 	array = (char **)malloc((env->height) * sizeof(char *));
 	fd = open(filename, O_RDONLY);
@@ -151,16 +166,15 @@ static void	initiate_position(char *filename, t_data *env)
 				env->total_escape++;
 			if (line[j] == 'P')
 				env->total_hero++;
-			if (env->total_hero >= 2)
+			if (env->total_hero >= 2 || env->total_escape >= 2)
 			{
-				printf("OOPS ! ONLY  ONE hero can exist");
+				while (line)
+				{
+					free(line);
+					line = get_next_line(fd);
+				}
 				free(env);
-				exit(1);
-			}
-			if (env->total_escape >= 2)
-			{
-				printf("OOPS ! ONLY  ONE excape can exist");
-				free(env);
+				free_array(array, i);
 				exit(1);
 			}
 			j++;
