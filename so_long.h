@@ -49,9 +49,9 @@ typedef struct s_data
 	int		cur_x;
 	int		cur_y;
 	int		total_collec;
-	int 	total_escape;
-	int 	total_hero;
-	
+	int		total_escape;
+	int		total_hero;
+
 }			t_data;
 
 void		send_error_msg(char *s);
@@ -62,5 +62,10 @@ void		clear_game(t_data *env);
 void		put_image_to_window(t_data *env);
 void		display_game_to_window(t_data *env);
 void		find_cur_position(t_data *env);
-
+char		**free_array(char **array, int count);
+int			mouse_event(t_data *env);
+void		clear_game(t_data *env);
+void		find_cur_position(t_data *env);
+void		map_parse(char *filename, t_data *env);
+void		check_collect_surrounded(t_data *env);
 #endif

@@ -11,34 +11,6 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	clear_game(t_data *env)
-{
-	int	i;
-
-	mlx_destroy_image(env->mlx, env->spike);
-	mlx_destroy_image(env->mlx, env->collect);
-	mlx_destroy_image(env->mlx, env->hero);
-	mlx_destroy_image(env->mlx, env->bg);
-	mlx_destroy_image(env->mlx, env->sortie);
-	mlx_destroy_window(env->mlx, env->win);
-	mlx_destroy_display(env->mlx);
-	i = 0;
-	while (i < env->height)
-	{
-		free(env->position[i]);
-		i++;
-	}
-	free(env->position);
-	free(env->mlx);
-	free(env);
-	exit(0);
-}
-
-static int	mouse_event(t_data *env)
-{
-	clear_game(env);
-	return (0);
-}
 void	display_game_to_window(t_data *env)
 {
 	int	i;
@@ -113,6 +85,11 @@ static void	map_read(char *filename, t_data *env)
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		free(env);
+		exit(1);
+	}
 	line = get_next_line(fd);
 	env->width = ft_strlen(line) - 1;
 	env->height = 0;
@@ -125,17 +102,6 @@ static void	map_read(char *filename, t_data *env)
 	}
 	close(fd);
 }
-static char	**free_array(char **array, int count)
-{
-	while (count >= 0)
-	{
-		free(array[count]);
-		array[count] = NULL; // Set to NULL before freeing
-		count--;
-	}
-	free(array);
-	return (NULL);
-}
 
 static void	initiate_position(char *filename, t_data *env)
 {
@@ -145,10 +111,6 @@ static void	initiate_position(char *filename, t_data *env)
 	char	*line;
 	int		j;
 
-	env->count = 0;
-	env->total_collec = 0;
-	env->total_escape = 0;
-	env->total_hero = 0;
 	i = 0;
 	array = (char **)malloc((env->height) * sizeof(char *));
 	fd = open(filename, O_RDONLY);
@@ -160,14 +122,10 @@ static void	initiate_position(char *filename, t_data *env)
 		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			array[i][j] = line[j];
-			if (line[j] == 'C')
-				env->total_collec++;
-			if (line[j] == 'E')
-				env->total_escape++;
-			if (line[j] == 'P')
-				env->total_hero++;
-			if (env->total_hero >= 2 || env->total_escape >= 2)
+			if (env->total_escape != 1 || env->total_hero != 1
+				|| env->total_collec == 0)
 			{
+				ft_printf("OOPS ! ONLY  ONE hero can exist");
 				while (line)
 				{
 					free(line);
@@ -183,33 +141,11 @@ static void	initiate_position(char *filename, t_data *env)
 		free(line);
 		line = get_next_line(fd);
 	}
-	printf("Total collec %d\n", env->total_collec);
+	ft_printf("Total collec %d\n", env->total_collec);
 	close(fd);
 	env->position = array;
 }
-void	find_cur_position(t_data *env)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	while (i < env->height)
-	{
-		j = 0;
-		while (j < env->width)
-		{
-			if (env->position[i][j] == 'P')
-			{
-				env->cur_x = j;
-				env->cur_y = i;
-			}
-			j++;
-		}
-		i++;
-	}
-	env->count++;
-	ft_printf("Calcifer is moving this much : %d\n", env->count);
-}
 int	main(int argc, char **argv)
 {
 	t_data	*env;
@@ -222,7 +158,9 @@ int	main(int argc, char **argv)
 		if (!env)
 			free(env);
 		map_read(filename, env);
+		map_parse(filename, env);
 		initiate_position(filename, env);
+		check_collect_surrounded(env);
 		initiate_characters(env);
 		display_game_to_window(env);
 		mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
