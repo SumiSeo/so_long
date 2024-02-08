@@ -78,12 +78,12 @@ void	check_collect_surrounded(t_data *env)
 					+ 1][j] == '1' && env->position[i][j - 1] == '1'
 					&& env->position[i][j + 1] == '1')
 				{
+					ft_printf("YOU CAN NOT COOLECT ITEM WHICH IS SURROUND BY WAR");
 					while (i < env->height)
 					{
 						free(env->position[i]);
 						i++;
 					}
-					ft_printf("YOU CAN NOT COOLECT ITEM WHICH IS SURROUND BY WAR");
 					free(env);
 					free(env->position);
 					exit(1);
@@ -95,12 +95,12 @@ void	check_collect_surrounded(t_data *env)
 					+ 1][j] == '1' && env->position[i][j - 1] == '1'
 					&& env->position[i][j + 1] == '1')
 				{
+					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
 					while (i < env->height)
 					{
 						free(env->position[i]);
 						i++;
 					}
-					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
 					free(env->position);
 					free(env);
 					exit(1);
@@ -111,12 +111,12 @@ void	check_collect_surrounded(t_data *env)
 				if (env->position[i + 1][j] == '1' && env->position[i
 					- 1][j] == '1' && env->position[i][j + 1] == '1')
 				{
+					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
 					while (i < env->height)
 					{
 						free(env->position[i]);
 						i++;
 					}
-					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
 					free(env->position);
 					free(env);
 					exit(1);
