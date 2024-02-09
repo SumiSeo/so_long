@@ -89,6 +89,23 @@ void	check_collect_surrounded(t_data *env)
 					exit(1);
 				}
 			}
+			if (env->position[i][j] == 'E')
+			{
+				if (env->position[i - 1][j] == '1' && env->position[i
+					+ 1][j] == '1' && env->position[i][j - 1] == '1'
+					&& env->position[i][j + 1] == '1')
+				{
+					ft_printf("YOU CAN NOT REACH TO THE EXIT WHICH IS SURROUND BY WAR");
+					while (i < env->height)
+					{
+						free(env->position[i]);
+						i++;
+					}
+					free(env);
+					free(env->position);
+					exit(1);
+				}
+			}
 			if (env->position[i][j] == 'P')
 			{
 				if (env->position[i - 1][j] == '1' && env->position[i
