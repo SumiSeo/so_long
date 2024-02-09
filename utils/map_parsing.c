@@ -139,6 +139,13 @@ void	check_collect_surrounded(t_data *env)
 					exit(1);
 				}
 			}
+			else if (env->position[i][j] != '1' && env->position[i][j] != '0'
+				&& env->position[i][j] != 'E' && env->position[i][j] != 'C'
+				&& env->position[i][j] != 'P')
+			{
+				ft_printf("THERE IS UNKNOWN CHARACTER,SO CAN'T CREATE THE MAP CORRECTLY");
+				exit(1);
+			}
 			j++;
 		}
 		i++;
@@ -165,21 +172,12 @@ void	map_parse(char *filename, t_data *env)
 		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			if ((i == 0 && line[j] != '1') || (i == env->height - 1
-					&& line[j] != '1'))
+					&& line[j] != '1') || (j == 0 && line[j] != '1')
+				|| (j == env->width - 1 && line[j] != '1'))
 			{
 				while (line)
 				{
-					free(line);
-					line = get_next_line(fd);
-				}
-				free(env);
-				exit(1);
-			}
-			else if ((j == 0 && line[j] != '1') || (j == env->width - 1
-					&& line[j] != '1'))
-			{
-				while (line)
-				{
+					ft_printf("YOU HAVE SOMETHING INSIDE OF THE WAR\n");
 					free(line);
 					line = get_next_line(fd);
 				}
