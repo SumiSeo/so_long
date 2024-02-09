@@ -132,6 +132,7 @@ static void	initiate_position(char *filename, t_data *env)
 					line = get_next_line(fd);
 				}
 				free(env);
+				printf("i = %d\n", i);
 				free_array(array, i);
 				exit(1);
 			}

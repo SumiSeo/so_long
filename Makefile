@@ -25,7 +25,7 @@ OBJS = $(SRCS:%.c=%.o)
 #
 
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 CLIB = -Lminilibx/ -lmlx -lmlx_Linux -Iminilibx -lX11 -lXext -Lprintf/ -lftprintf
 DEBUGGER = -g3
 

@@ -81,9 +81,9 @@ void	check_collect_surrounded(t_data *env)
 			}
 			if (env->position[i][j] == 'C')
 			{
-				if (env->position[i - 1][j] == '1' && env->position[i
-					+ 1][j] == '1' && env->position[i][j - 1] == '1'
-					&& env->position[i][j + 1] == '1')
+				if (env->position[i - 1][j] != '0' && env->position[i
+					+ 1][j] != '0' && env->position[i][j - 1] != '0'
+					&& env->position[i][j + 1] != '0')
 				{
 					ft_printf("YOU CAN NOT COOLECT ITEM WHICH IS SURROUND BY WAR");
 					while (i < env->height)
@@ -98,9 +98,9 @@ void	check_collect_surrounded(t_data *env)
 			}
 			if (env->position[i][j] == 'E')
 			{
-				if (env->position[i - 1][j] == '1' && env->position[i
-					+ 1][j] == '1' && env->position[i][j - 1] == '1'
-					&& env->position[i][j + 1] == '1')
+				if (env->position[i - 1][j] != '0' && env->position[i
+					+ 1][j] != '0' && env->position[i][j - 1] != '0'
+					&& env->position[i][j + 1] != '0')
 				{
 					ft_printf("YOU CAN NOT REACH TO THE EXIT WHICH IS SURROUND BY WAR");
 					while (i < env->height)
@@ -115,9 +115,9 @@ void	check_collect_surrounded(t_data *env)
 			}
 			if (env->position[i][j] == 'P')
 			{
-				if (env->position[i - 1][j] == '1' && env->position[i
-					+ 1][j] == '1' && env->position[i][j - 1] == '1'
-					&& env->position[i][j + 1] == '1')
+				if (env->position[i - 1][j] != '0' && env->position[i
+					+ 1][j] != '0' && env->position[i][j - 1] != '0'
+					&& env->position[i][j + 1] != '0')
 				{
 					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
 					while (i < env->height)
@@ -130,22 +130,22 @@ void	check_collect_surrounded(t_data *env)
 					exit(1);
 				}
 			}
-			if (env->position[i][j] == '0')
-			{
-				if (env->position[i + 1][j] == '1' && env->position[i
-					- 1][j] == '1' && env->position[i][j + 1] == '1')
-				{
-					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
-					while (i < env->height)
-					{
-						free(env->position[i]);
-						i++;
-					}
-					free(env->position);
-					free(env);
-					exit(1);
-				}
-			}
+			// if (env->position[i][j] == '0')
+			// {
+			// 	if (env->position[i + 1][j] == '1' && env->position[i
+			// 		- 1][j] == '1' && env->position[i][j + 1] == '1')
+			// 	{
+			// 		ft_printf("WATCH OUT !");
+			// 		while (i < env->height)
+			// 		{
+			// 			free(env->position[i]);
+			// 			i++;
+			// 		}
+			// 		free(env->position);
+			// 		free(env);
+			// 		exit(1);
+			// 	}
+			// }
 			j++;
 		}
 		i++;
@@ -187,8 +187,9 @@ void	map_parse(char *filename, t_data *env)
 				free(env);
 				exit(1);
 			}
-			if (line[j] == 'C')
-				env->total_collec++;
+			if (line[j])
+				if (line[j] == 'C')
+					env->total_collec++;
 			if (line[j] == 'E')
 				env->total_escape++;
 			if (line[j] == 'P')
