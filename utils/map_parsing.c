@@ -72,6 +72,13 @@ void	check_collect_surrounded(t_data *env)
 		j = 0;
 		while (env->position[i][j] && j < env->width)
 		{
+			if (env->position[i][j] && env->position[i][j] != '1'
+				&& env->position[i][j] != '0' && env->position[i][j] != 'E'
+				&& env->position[i][j] != 'C' && env->position[i][j] != 'P')
+			{
+				ft_printf("THERE IS UNKNOWN CHARACTER,SO CAN'T CREATE THE MAP CORRECTLY");
+				exit(1);
+			}
 			if (env->position[i][j] == 'C')
 			{
 				if (env->position[i - 1][j] == '1' && env->position[i
@@ -139,13 +146,6 @@ void	check_collect_surrounded(t_data *env)
 					exit(1);
 				}
 			}
-			else if (env->position[i][j] != '1' && env->position[i][j] != '0'
-				&& env->position[i][j] != 'E' && env->position[i][j] != 'C'
-				&& env->position[i][j] != 'P')
-			{
-				ft_printf("THERE IS UNKNOWN CHARACTER,SO CAN'T CREATE THE MAP CORRECTLY");
-				exit(1);
-			}
 			j++;
 		}
 		i++;
@@ -158,6 +158,7 @@ void	map_parse(char *filename, t_data *env)
 	int		fd;
 	char	*line;
 	int		j;
+	int		len;
 
 	i = 0;
 	env->count = 0;
@@ -168,8 +169,10 @@ void	map_parse(char *filename, t_data *env)
 	line = get_next_line(fd);
 	while (line && i < env->height)
 	{
+		len = ft_strlen(line);
+		printf("length %d\n", len);
 		j = 0;
-		while (line[j] && line[j] != '\n' && j < env->width)
+		while (line[j] && line[j] != '\n' && line[j] != '\0' && j < env->width)
 		{
 			if ((i == 0 && line[j] != '1') || (i == env->height - 1
 					&& line[j] != '1') || (j == 0 && line[j] != '1')
