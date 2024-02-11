@@ -12,6 +12,24 @@
 
 #include "../so_long.h"
 
+// void	find_route(char **tab, t_point size, t_point cur)
+void	find_route(char **tab, t_data env)
+{
+	if (env->cur_y < 0 || env->cur_y >= env->height || env->cur_x < 0
+		|| env->cur_x >= env->width)
+		return ;
+	find_route(tab, (t_data){env->cur_x - 1, env->cur_y});
+	// fill(tab, size, (t_point){cur.x + 1, cur.y});
+	// fill(tab, size, (t_point){cur.x, cur.y - 1});
+	// fill(tab, size, (t_point){cur.x, cur.y + 1});
+	printf("TESTSET");
+}
+
+void	is_map_valid(char **tab, t_data *env)
+{
+	find_route(tab, env);
+}
+
 void	check_valid_map(t_data *env)
 {
 	int	i;
@@ -23,6 +41,14 @@ void	check_valid_map(t_data *env)
 		j = 0;
 		while (j < env->width && env->position[i][j])
 		{
+			if (env->position[i][j] == 'P')
+			{
+				env->cur_x = j;
+				env->cur_y = i;
+				ft_printf("current psition check x : %d\n", env->cur_x);
+				ft_printf("current psition check y : %d\n", env->cur_y);
+				is_map_valid(env->position, env);
+			}
 			if (env->position[i][j] && env->position[i][j] != '1'
 				&& env->position[i][j] != '0' && env->position[i][j] != 'E'
 				&& env->position[i][j] != 'C' && env->position[i][j] != 'P')
@@ -57,7 +83,6 @@ void	map_parse(char *filename, t_data *env)
 	while (line && i < env->height)
 	{
 		len = ft_strlen(line);
-		printf("length %d\n", len);
 		j = 0;
 		while (line[j] && line[j] != '\n' && line[j] != '\0' && j < env->width)
 		{
@@ -74,7 +99,7 @@ void	map_parse(char *filename, t_data *env)
 				free(env);
 				exit(1);
 			}
-			if (line[j])
+			if (line[j] == 'C')
 				env->total_collec++;
 			if (line[j] == 'E')
 				env->total_escape++;

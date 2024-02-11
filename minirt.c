@@ -125,7 +125,7 @@ static void	initiate_position(char *filename, t_data *env)
 			if (env->total_escape != 1 || env->total_hero != 1
 				|| env->total_collec == 0)
 			{
-				ft_printf("*** Do you have correct number of ESACAPE ?\n Do you have correct number of HERO ? \n Do you have at least 1 of COLLECTION ? ");
+				ft_printf("check number of ESACAPE,HERO or COLLECTION");
 				while (line)
 				{
 					free(line);
@@ -159,6 +159,7 @@ int	main(int argc, char **argv)
 		if (!env)
 			free(env);
 		map_read(filename, env);
+		// find_cur_position(env);
 		map_parse(filename, env);
 		initiate_position(filename, env);
 		check_valid_map(env);
