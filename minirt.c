@@ -161,7 +161,7 @@ int	main(int argc, char **argv)
 		map_read(filename, env);
 		map_parse(filename, env);
 		initiate_position(filename, env);
-		check_collect_surrounded(env);
+		check_valid_map(env);
 		initiate_characters(env);
 		display_game_to_window(env);
 		mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);

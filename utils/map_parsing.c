@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-void	check_collect_surrounded(t_data *env)
+void	check_valid_map(t_data *env)
 {
 	int	i;
 	int	j;
@@ -26,46 +26,13 @@ void	check_collect_surrounded(t_data *env)
 			if (env->position[i][j] && env->position[i][j] != '1'
 				&& env->position[i][j] != '0' && env->position[i][j] != 'E'
 				&& env->position[i][j] != 'C' && env->position[i][j] != 'P')
-			{
-				ft_printf("THERE IS UNKNOWN CHARACTER,SO CAN'T CREATE THE MAP CORRECTLY");
-				exit(1);
-			}
+				error_is("The map element is not correct");
 			if (env->position[i][j] == 'C')
-			{
-				if (env->position[i - 1][j] != '0' && env->position[i
-					+ 1][j] != '0' && env->position[i][j - 1] != '0'
-					&& env->position[i][j + 1] != '0')
-				{
-					ft_printf("YOU CAN NOT COOLECT ITEM WHICH IS SURROUND BY WAR");
-					free_array(env->position, env->height - 1);
-					free(env);
-					exit(1);
-				}
-			}
+				correct_is(i, j, env);
 			if (env->position[i][j] == 'E')
-			{
-				if (env->position[i - 1][j] != '0' && env->position[i
-					+ 1][j] != '0' && env->position[i][j - 1] != '0'
-					&& env->position[i][j + 1] != '0')
-				{
-					ft_printf("YOU CAN NOT REACH TO THE EXIT WHICH IS SURROUND BY WAR");
-					free_array(env->position, env->height - 1);
-					free(env);
-					exit(1);
-				}
-			}
+				escape_is(i, j, env);
 			if (env->position[i][j] == 'P')
-			{
-				if (env->position[i - 1][j] != '0' && env->position[i
-					+ 1][j] != '0' && env->position[i][j - 1] != '0'
-					&& env->position[i][j + 1] != '0')
-				{
-					ft_printf("YOU CAN NOT MOVE YOUR HERO ITEM WHICH IS SURROUND BY WAR");
-					free_array(env->position, env->height - 1);
-					free(env);
-					exit(1);
-				}
-			}
+				person_is(i, j, env);
 			j++;
 		}
 		i++;
@@ -108,8 +75,7 @@ void	map_parse(char *filename, t_data *env)
 				exit(1);
 			}
 			if (line[j])
-				if (line[j] == 'C')
-					env->total_collec++;
+				env->total_collec++;
 			if (line[j] == 'E')
 				env->total_escape++;
 			if (line[j] == 'P')

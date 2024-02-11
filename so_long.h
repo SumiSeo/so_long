@@ -67,5 +67,9 @@ int			mouse_event(t_data *env);
 void		clear_game(t_data *env);
 void		find_cur_position(t_data *env);
 void		map_parse(char *filename, t_data *env);
-void		check_collect_surrounded(t_data *env);
+void		correct_is(int i, int j, t_data *env);
+void		escape_is(int i, int j, t_data *env);
+void		person_is(int i, int j, t_data *env);
+void		error_is(char *msg);
+void		check_valid_map(t_data *env);
 #endif

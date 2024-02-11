@@ -15,7 +15,7 @@ NAME = so_long
 #
 #SRCS and OBJS
 #
-SRCS = minirt.c get_next_line.c get_next_line_utils.c send_error_msg.c key_events.c utils/map_parsing.c utils/utils.c
+SRCS = minirt.c get_next_line.c get_next_line_utils.c send_error_msg.c key_events.c utils/map_parsing.c utils/utils.c utils/map_parsing_handler.c
 INCLUDES = minilibx/
 INCLUDES2 =printf/
 OBJS = $(SRCS:%.c=%.o)
