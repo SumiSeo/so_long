@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:35:29 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:35:30 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/15 19:52:28 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_data
 	int		total_escape;
 	int		total_hero;
 	int		collected_collec;
-
 }			t_data;
 
 void		send_error_msg(char *s);
@@ -76,4 +75,5 @@ void		error_is(char *msg);
 void		check_valid_map(t_data *env);
 void		find_route(char **tab, t_data *env, int x, int y);
 void		is_map_valid(char **tab, t_data *env);
+void		put_image(t_data *env, char c, int j, int i);
 #endif

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumseo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/01/09 17:16:48 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/15 19:51:59 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "so_long.h"
 
 void	display_game_to_window(t_data *env)
@@ -23,22 +24,15 @@ void	display_game_to_window(t_data *env)
 		while (j < env->width)
 		{
 			if (env->position[i][j] == '1')
-				mlx_put_image_to_window(env->mlx, env->win, env->spike, j * 50,
-					i * 50);
+				put_image(env, 's', j, i);
 			else if (env->position[i][j] == '3')
-				mlx_put_image_to_window(env->mlx, env->win, env->collect, j
-					* 50, i * 50);
+				put_image(env, 'c', j, i);
 			else if (env->position[i][j] == '4')
-				mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i
-					* 50);
+				put_image(env, 'h', j, i);
 			else if (env->position[i][j] == 'E')
-				mlx_put_image_to_window(env->mlx, env->win, env->sortie, j * 50,
-					i * 50);
+				put_image(env, 'e', j, i);
 			else
-			{
-				mlx_put_image_to_window(env->mlx, env->win, env->bg, j * 50, i
-					* 50);
-			}
+				put_image(env, 'b', j, i);
 			j++;
 		}
 		i++;
@@ -162,7 +156,6 @@ int	main(int argc, char **argv)
 		map_parse(filename, env);
 		initiate_position(filename, env);
 		find_cur_position(env);
-		// check_valid_map(env);
 		is_map_valid(env->position, env);
 		initiate_characters(env);
 		display_game_to_window(env);

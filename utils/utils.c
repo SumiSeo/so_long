@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumseo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:08:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/07 15:08:39 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/15 19:52:18 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+void	put_image(t_data *env, char c, int j, int i)
+{
+	if (c == 's')
+		mlx_put_image_to_window(env->mlx, env->win, env->spike, j * 50, i * 50);
+	else if (c == 'c')
+		mlx_put_image_to_window(env->mlx, env->win, env->collect, j * 50, i
+			* 50);
+	else if (c == 'h')
+		mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i * 50);
+	else if (c == 'e')
+		mlx_put_image_to_window(env->mlx, env->win, env->sortie, j * 50, i
+			* 50);
+	else
+		mlx_put_image_to_window(env->mlx, env->win, env->bg, j * 50, i * 50);
+}
 char	**free_array(char **array, int count)
 {
 	while (count >= 0)
