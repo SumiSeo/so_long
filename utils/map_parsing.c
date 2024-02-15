@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumseo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/07 15:14:38 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/15 19:37:44 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void	find_route(char **tab, t_data *env, int x, int y)
 		env->position[y][x] = '3';
 	}
 	if (element == 'P')
-	{
 		env->position[y][x] = '4';
-	}
 	if (element == 'E')
 		env->collected_collec++;
 	find_route(tab, env, x - 1, y);
@@ -63,6 +61,30 @@ void	is_map_valid(char **tab, t_data *env)
 	}
 }
 
+void	initiate_env(t_data *env)
+{
+	env->count = 0;
+	env->total_collec = 0;
+	env->total_escape = 0;
+	env->total_hero = 0;
+	env->collected_collec = 0;
+}
+
+void	count_element(char *line, int j, t_data *env)
+{
+	if (line[j] == 'C')
+		env->total_collec++;
+	else if (line[j] == 'E')
+	{
+		env->total_escape++;
+		env->total_collec++;
+	}
+	else if (line[j] == 'P')
+		env->total_hero++;
+	else if (line[j] != '0' && line[j] != '1')
+		error_is("The map element is not correct");
+}
+
 void	map_parse(char *filename, t_data *env)
 {
 	int		i;
@@ -71,12 +93,8 @@ void	map_parse(char *filename, t_data *env)
 	int		j;
 	int		len;
 
+	initiate_env(env);
 	i = 0;
-	env->count = 0;
-	env->total_collec = 0;
-	env->total_escape = 0;
-	env->total_hero = 0;
-	env->collected_collec = 0;
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	while (line && i < env->height)
@@ -91,24 +109,13 @@ void	map_parse(char *filename, t_data *env)
 			{
 				while (line)
 				{
-					ft_printf("YOU HAVE SOMETHING INSIDE OF THE WAR\n");
 					free(line);
 					line = get_next_line(fd);
 				}
 				free(env);
 				exit(1);
 			}
-			if (line[j] == 'C')
-				env->total_collec++;
-			else if (line[j] == 'E')
-			{
-				env->total_escape++;
-				env->total_collec++;
-			}
-			else if (line[j] == 'P')
-				env->total_hero++;
-			else if (line[j] != '0' && line[j] != '1')
-				error_is("The map element is not correct");
+			count_element(line, j, env);
 			j++;
 		}
 		i++;
