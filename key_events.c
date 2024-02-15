@@ -15,20 +15,20 @@
 void	move_up(t_data *env)
 {
 	find_cur_position(env);
-	if (env->position[env->cur_y - 1][env->cur_x] == '0')
+	if (env->position[env->cur_y - 1][env->cur_x] == '2')
 	{
-		env->position[env->cur_y - 1][env->cur_x] = 'P';
-		env->position[env->cur_y][env->cur_x] = '0';
+		env->position[env->cur_y - 1][env->cur_x] = '4';
+		env->position[env->cur_y][env->cur_x] = '2';
 	}
-	else if (env->position[env->cur_y - 1][env->cur_x] == 'C')
+	else if (env->position[env->cur_y - 1][env->cur_x] == '3')
 	{
-		env->position[env->cur_y - 1][env->cur_x] = '0';
+		env->position[env->cur_y - 1][env->cur_x] = '2';
 		env->total_collec--;
 	}
 	else if (env->position[env->cur_y - 1][env->cur_x] == 'E'
-		&& env->total_collec == 0)
+		&& env->total_collec == 1)
 	{
-		env->position[env->cur_y - 1][env->cur_x] = '0';
+		env->position[env->cur_y - 1][env->cur_x] = '2';
 		clear_game(env);
 	}
 	display_game_to_window(env);
@@ -37,20 +37,20 @@ void	move_up(t_data *env)
 void	move_right(t_data *env)
 {
 	find_cur_position(env);
-	if (env->position[env->cur_y][env->cur_x + 1] == '0')
+	if (env->position[env->cur_y][env->cur_x + 1] == '2')
 	{
-		env->position[env->cur_y][env->cur_x + 1] = 'P';
-		env->position[env->cur_y][env->cur_x] = '0';
+		env->position[env->cur_y][env->cur_x + 1] = '4';
+		env->position[env->cur_y][env->cur_x] = '2';
 	}
-	else if (env->position[env->cur_y][env->cur_x + 1] == 'C')
+	else if (env->position[env->cur_y][env->cur_x + 1] == '3')
 	{
-		env->position[env->cur_y][env->cur_x + 1] = '0';
+		env->position[env->cur_y][env->cur_x + 1] = '2';
 		env->total_collec--;
 	}
 	else if (env->position[env->cur_y][env->cur_x + 1] == 'E'
-		&& env->total_collec == 0)
+		&& env->total_collec == 1)
 	{
-		env->position[env->cur_y][env->cur_x + 1] = '0';
+		env->position[env->cur_y][env->cur_x + 1] = '2';
 		clear_game(env);
 	}
 	display_game_to_window(env);
@@ -59,20 +59,20 @@ void	move_right(t_data *env)
 void	move_left(t_data *env)
 {
 	find_cur_position(env);
-	if (env->position[env->cur_y][env->cur_x - 1] == '0')
+	if (env->position[env->cur_y][env->cur_x - 1] == '2')
 	{
-		env->position[env->cur_y][env->cur_x - 1] = 'P';
-		env->position[env->cur_y][env->cur_x] = '0';
+		env->position[env->cur_y][env->cur_x - 1] = '4';
+		env->position[env->cur_y][env->cur_x] = '2';
 	}
-	else if (env->position[env->cur_y][env->cur_x - 1] == 'C')
+	else if (env->position[env->cur_y][env->cur_x - 1] == '3')
 	{
-		env->position[env->cur_y][env->cur_x - 1] = '0';
+		env->position[env->cur_y][env->cur_x - 1] = '2';
 		env->total_collec--;
 	}
 	else if (env->position[env->cur_y][env->cur_x - 1] == 'E'
-		&& env->total_collec == 0)
+		&& env->total_collec == 1)
 	{
-		env->position[env->cur_y][env->cur_x - 1] = '0';
+		env->position[env->cur_y][env->cur_x - 1] = '2';
 		clear_game(env);
 	}
 	display_game_to_window(env);
@@ -81,20 +81,20 @@ void	move_left(t_data *env)
 void	move_down(t_data *env)
 {
 	find_cur_position(env);
-	if (env->position[env->cur_y + 1][env->cur_x] == '0')
+	if (env->position[env->cur_y + 1][env->cur_x] == '2')
 	{
-		env->position[env->cur_y + 1][env->cur_x] = 'P';
-		env->position[env->cur_y][env->cur_x] = '0';
+		env->position[env->cur_y + 1][env->cur_x] = '4';
+		env->position[env->cur_y][env->cur_x] = '2';
 	}
-	else if (env->position[env->cur_y + 1][env->cur_x] == 'C')
+	else if (env->position[env->cur_y + 1][env->cur_x] == '3')
 	{
-		env->position[env->cur_y + 1][env->cur_x] = '0';
+		env->position[env->cur_y + 1][env->cur_x] = '2';
 		env->total_collec--;
 	}
 	else if (env->position[env->cur_y + 1][env->cur_x] == 'E'
-		&& env->total_collec == 0)
+		&& env->total_collec == 1)
 	{
-		env->position[env->cur_y + 1][env->cur_x] = '0';
+		env->position[env->cur_y + 1][env->cur_x] = '2';
 		clear_game(env);
 	}
 	display_game_to_window(env);

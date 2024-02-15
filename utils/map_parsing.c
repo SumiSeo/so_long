@@ -13,55 +13,53 @@
 #include "../so_long.h"
 
 // void	find_route(char **tab, t_point size, t_point cur)
-void	find_route(char **tab, t_data env)
+void	find_route(char **tab, t_data *env, int x, int y)
 {
-	if (env->cur_y < 0 || env->cur_y >= env->height || env->cur_x < 0
-		|| env->cur_x >= env->width)
+	char	element;
+
+	if (y < 0 || y >= env->height || x < 0 || x >= env->width)
 		return ;
-	find_route(tab, (t_data){env->cur_x - 1, env->cur_y});
-	// fill(tab, size, (t_point){cur.x + 1, cur.y});
-	// fill(tab, size, (t_point){cur.x, cur.y - 1});
-	// fill(tab, size, (t_point){cur.x, cur.y + 1});
-	printf("TESTSET");
+	element = env->position[y][x];
+	if (element == '2' || element == '1' || element == '3' || element == '4')
+		return ;
+	if (element == '0')
+		env->position[y][x] = '2';
+	if (element == 'C')
+	{
+		env->collected_collec++;
+		env->position[y][x] = '3';
+	}
+	if (element == 'P')
+	{
+		env->position[y][x] = '4';
+	}
+	if (element == 'E')
+		env->collected_collec++;
+	find_route(tab, env, x - 1, y);
+	find_route(tab, env, x + 1, y);
+	find_route(tab, env, x, y - 1);
+	find_route(tab, env, x, y + 1);
+	(void)x;
+	(void)y;
+	(void)tab;
 }
 
 void	is_map_valid(char **tab, t_data *env)
 {
-	find_route(tab, env);
-}
-
-void	check_valid_map(t_data *env)
-{
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < env->height && env->position[i])
+	find_route(tab, env, env->cur_x, env->cur_y);
+	if (env->collected_collec != env->total_collec)
 	{
-		j = 0;
-		while (j < env->width && env->position[i][j])
+		while (i < env->height)
 		{
-			if (env->position[i][j] == 'P')
-			{
-				env->cur_x = j;
-				env->cur_y = i;
-				ft_printf("current psition check x : %d\n", env->cur_x);
-				ft_printf("current psition check y : %d\n", env->cur_y);
-				is_map_valid(env->position, env);
-			}
-			if (env->position[i][j] && env->position[i][j] != '1'
-				&& env->position[i][j] != '0' && env->position[i][j] != 'E'
-				&& env->position[i][j] != 'C' && env->position[i][j] != 'P')
-				error_is("The map element is not correct");
-			if (env->position[i][j] == 'C')
-				correct_is(i, j, env);
-			if (env->position[i][j] == 'E')
-				escape_is(i, j, env);
-			if (env->position[i][j] == 'P')
-				person_is(i, j, env);
-			j++;
+			free(env->position[i]);
+			i++;
 		}
-		i++;
+		free(env->position);
+		free(env);
+		exit(1);
 	}
 }
 
@@ -78,6 +76,7 @@ void	map_parse(char *filename, t_data *env)
 	env->total_collec = 0;
 	env->total_escape = 0;
 	env->total_hero = 0;
+	env->collected_collec = 0;
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	while (line && i < env->height)
@@ -101,10 +100,15 @@ void	map_parse(char *filename, t_data *env)
 			}
 			if (line[j] == 'C')
 				env->total_collec++;
-			if (line[j] == 'E')
+			else if (line[j] == 'E')
+			{
 				env->total_escape++;
-			if (line[j] == 'P')
+				env->total_collec++;
+			}
+			else if (line[j] == 'P')
 				env->total_hero++;
+			else if (line[j] != '0' && line[j] != '1')
+				error_is("The map element is not correct");
 			j++;
 		}
 		i++;

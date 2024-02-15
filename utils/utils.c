@@ -35,6 +35,7 @@ void	clear_game(t_data *env)
 	mlx_destroy_image(env->mlx, env->sortie);
 	mlx_destroy_window(env->mlx, env->win);
 	mlx_destroy_display(env->mlx);
+	free(env->mlx);
 	i = 0;
 	while (i < env->height)
 	{
@@ -42,7 +43,6 @@ void	clear_game(t_data *env)
 		i++;
 	}
 	free(env->position);
-	free(env->mlx);
 	free(env);
 	exit(0);
 }
@@ -64,7 +64,7 @@ void	find_cur_position(t_data *env)
 		j = 0;
 		while (j < env->width)
 		{
-			if (env->position[i][j] == 'P')
+			if (env->position[i][j] == 'P' || env->position[i][j] == '4')
 			{
 				env->cur_x = j;
 				env->cur_y = i;

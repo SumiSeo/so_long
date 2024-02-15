@@ -51,6 +51,7 @@ typedef struct s_data
 	int		total_collec;
 	int		total_escape;
 	int		total_hero;
+	int		collected_collec;
 
 }			t_data;
 
@@ -72,4 +73,6 @@ void		escape_is(int i, int j, t_data *env);
 void		person_is(int i, int j, t_data *env);
 void		error_is(char *msg);
 void		check_valid_map(t_data *env);
+void		find_route(char **tab, t_data *env, int x, int y);
+void		is_map_valid(char **tab, t_data *env);
 #endif

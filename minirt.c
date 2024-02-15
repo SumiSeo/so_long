@@ -25,10 +25,10 @@ void	display_game_to_window(t_data *env)
 			if (env->position[i][j] == '1')
 				mlx_put_image_to_window(env->mlx, env->win, env->spike, j * 50,
 					i * 50);
-			else if (env->position[i][j] == 'C')
+			else if (env->position[i][j] == '3')
 				mlx_put_image_to_window(env->mlx, env->win, env->collect, j
 					* 50, i * 50);
-			else if (env->position[i][j] == 'P')
+			else if (env->position[i][j] == '4')
 				mlx_put_image_to_window(env->mlx, env->win, env->hero, j * 50, i
 					* 50);
 			else if (env->position[i][j] == 'E')
@@ -159,10 +159,11 @@ int	main(int argc, char **argv)
 		if (!env)
 			free(env);
 		map_read(filename, env);
-		// find_cur_position(env);
 		map_parse(filename, env);
 		initiate_position(filename, env);
-		check_valid_map(env);
+		find_cur_position(env);
+		// check_valid_map(env);
+		is_map_valid(env->position, env);
 		initiate_characters(env);
 		display_game_to_window(env);
 		mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
