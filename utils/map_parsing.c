@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 15:50:40 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 17:02:39 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	find_route(char **tab, t_data *env, int x, int y)
 	find_route(tab, env, x + 1, y);
 	find_route(tab, env, x, y - 1);
 	find_route(tab, env, x, y + 1);
-	(void)x;
-	(void)y;
-	(void)tab;
 }
 
 void	is_map_valid(char **tab, t_data *env)
@@ -78,48 +75,45 @@ void	count_element(char *line, int j, t_data *env)
 	else if (line[j] != '0' && line[j] != '1')
 		error_is("The map element is not correct");
 }
-
-void	map_parse2(int i, int j, char *line, t_data *env, int fd)
+void	map_parse_loop(char *line, t_data *env, int fd)
 {
-	if ((i == 0 && line[j] != '1') || (i == env->height - 1 && line[j] != '1')
-		|| (j == 0 && line[j] != '1') || (j == env->width - 1
-			&& line[j] != '1'))
-	{
-		while (line)
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
-		free(env);
-		exit(1);
-	}
-	count_element(line, j, env);
-}
+	int	i;
+	int	j;
 
-void	map_parse(char *filename, t_data *env)
-{
-	int		i;
-	int		fd;
-	char	*line;
-	int		j;
-	int		len;
-
-	initiate_env(env);
 	i = 0;
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
 	while (line && i < env->height)
 	{
-		len = ft_strlen(line);
 		j = 0;
 		while (line[j] && line[j] != '\n' && line[j] != '\0' && j < env->width)
 		{
-			map_parse2(i, j, line, env, fd);
+			if ((i == 0 && line[j] != '1') || (i == env->height - 1
+					&& line[j] != '1') || (j == 0 && line[j] != '1')
+				|| (j == env->width - 1 && line[j] != '1'))
+			{
+				while (line)
+				{
+					free(line);
+					line = get_next_line(fd);
+				}
+				free(env);
+				exit(1);
+			}
+			count_element(line, j, env);
 			j++;
 		}
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
+}
+void	map_parse(char *filename, t_data *env)
+{
+	int		fd;
+	char	*line;
+
+	initiate_env(env);
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	map_parse_loop(line, env, fd);
 	close(fd);
 }
