@@ -6,13 +6,12 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:41:21 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:50:40 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// void	find_route(char **tab, t_point size, t_point cur)
 void	find_route(char **tab, t_data *env, int x, int y)
 {
 	char	element;
@@ -32,7 +31,10 @@ void	find_route(char **tab, t_data *env, int x, int y)
 	if (element == 'P')
 		env->position[y][x] = '4';
 	if (element == 'E')
+	{
+		env->position[y][x] = '5';
 		env->collected_collec++;
+	}
 	find_route(tab, env, x - 1, y);
 	find_route(tab, env, x + 1, y);
 	find_route(tab, env, x, y - 1);
@@ -61,21 +63,13 @@ void	is_map_valid(char **tab, t_data *env)
 	}
 }
 
-void	initiate_env(t_data *env)
-{
-	env->count = 0;
-	env->total_collec = 0;
-	env->total_escape = 0;
-	env->total_hero = 0;
-	env->collected_collec = 0;
-}
-
 void	count_element(char *line, int j, t_data *env)
 {
 	if (line[j] == 'C')
 		env->total_collec++;
 	else if (line[j] == 'E')
 	{
+		ft_printf("Found eScape\n");
 		env->total_escape++;
 		env->total_collec++;
 	}
@@ -83,6 +77,23 @@ void	count_element(char *line, int j, t_data *env)
 		env->total_hero++;
 	else if (line[j] != '0' && line[j] != '1')
 		error_is("The map element is not correct");
+}
+
+void	map_parse2(int i, int j, char *line, t_data *env, int fd)
+{
+	if ((i == 0 && line[j] != '1') || (i == env->height - 1 && line[j] != '1')
+		|| (j == 0 && line[j] != '1') || (j == env->width - 1
+			&& line[j] != '1'))
+	{
+		while (line)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		free(env);
+		exit(1);
+	}
+	count_element(line, j, env);
 }
 
 void	map_parse(char *filename, t_data *env)
@@ -103,19 +114,7 @@ void	map_parse(char *filename, t_data *env)
 		j = 0;
 		while (line[j] && line[j] != '\n' && line[j] != '\0' && j < env->width)
 		{
-			if ((i == 0 && line[j] != '1') || (i == env->height - 1
-					&& line[j] != '1') || (j == 0 && line[j] != '1')
-				|| (j == env->width - 1 && line[j] != '1'))
-			{
-				while (line)
-				{
-					free(line);
-					line = get_next_line(fd);
-				}
-				free(env);
-				exit(1);
-			}
-			count_element(line, j, env);
+			map_parse2(i, j, line, env, fd);
 			j++;
 		}
 		i++;

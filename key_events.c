@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumseo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:13:42 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/07 15:13:44 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:51:17 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	move_up(t_data *env)
 		env->position[env->cur_y - 1][env->cur_x] = '2';
 		env->total_collec--;
 	}
-	else if (env->position[env->cur_y - 1][env->cur_x] == 'E'
+	else if (env->position[env->cur_y - 1][env->cur_x] == '5'
 		&& env->total_collec == 1)
 	{
 		env->position[env->cur_y - 1][env->cur_x] = '2';
@@ -47,7 +47,7 @@ void	move_right(t_data *env)
 		env->position[env->cur_y][env->cur_x + 1] = '2';
 		env->total_collec--;
 	}
-	else if (env->position[env->cur_y][env->cur_x + 1] == 'E'
+	else if (env->position[env->cur_y][env->cur_x + 1] == '5'
 		&& env->total_collec == 1)
 	{
 		env->position[env->cur_y][env->cur_x + 1] = '2';
@@ -69,7 +69,7 @@ void	move_left(t_data *env)
 		env->position[env->cur_y][env->cur_x - 1] = '2';
 		env->total_collec--;
 	}
-	else if (env->position[env->cur_y][env->cur_x - 1] == 'E'
+	else if (env->position[env->cur_y][env->cur_x - 1] == '5'
 		&& env->total_collec == 1)
 	{
 		env->position[env->cur_y][env->cur_x - 1] = '2';
@@ -91,7 +91,7 @@ void	move_down(t_data *env)
 		env->position[env->cur_y + 1][env->cur_x] = '2';
 		env->total_collec--;
 	}
-	else if (env->position[env->cur_y + 1][env->cur_x] == 'E'
+	else if (env->position[env->cur_y + 1][env->cur_x] == '5'
 		&& env->total_collec == 1)
 	{
 		env->position[env->cur_y + 1][env->cur_x] = '2';

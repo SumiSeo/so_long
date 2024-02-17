@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:08:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:52:18 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:43:02 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	put_image(t_data *env, char c, int j, int i)
 	else
 		mlx_put_image_to_window(env->mlx, env->win, env->bg, j * 50, i * 50);
 }
+
 char	**free_array(char **array, int count)
 {
 	while (count >= 0)

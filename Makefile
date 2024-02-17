@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sumseo <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 16:31:45 by sumseo            #+#    #+#              #
-#    Updated: 2024/01/09 16:38:06 by sumseo           ###   ########.fr        #
+#    Updated: 2024/02/17 15:11:05 by sumseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = so_long
 #
 #SRCS and OBJS
 #
-SRCS = minirt.c get_next_line.c get_next_line_utils.c send_error_msg.c key_events.c utils/map_parsing.c utils/utils.c utils/map_parsing_handler.c
+SRCS = minirt.c get_next_line.c get_next_line_utils.c key_events.c utils/map_parsing.c utils/utils.c utils/map_parsing_handler.c
 INCLUDES = minilibx/
 INCLUDES2 =printf/
 OBJS = $(SRCS:%.c=%.o)

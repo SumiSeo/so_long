@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:26:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:26:38 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:10:03 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void	error_is(char *msg)
 {
 	ft_printf(msg);
 	exit(1);
+}
+
+void	initiate_env(t_data *env)
+{
+	env->count = 0;
+	env->total_collec = 0;
+	env->total_escape = 0;
+	env->total_hero = 0;
+	env->collected_collec = 0;
 }

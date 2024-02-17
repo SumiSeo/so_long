@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:35:29 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:52:28 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:21:10 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_data
 	int		collected_collec;
 }			t_data;
 
-void		send_error_msg(char *s);
 int			key_press(int keycode, t_data *env);
 char		*ft_strdup_without_newline(const char *s1);
 char		*ft_strjoin_without_newline(char *s1, char const *s2);
@@ -76,4 +75,6 @@ void		check_valid_map(t_data *env);
 void		find_route(char **tab, t_data *env, int x, int y);
 void		is_map_valid(char **tab, t_data *env);
 void		put_image(t_data *env, char c, int j, int i);
+void		initiate_env(t_data *env);
+
 #endif

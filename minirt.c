@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/15 19:51:59 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 15:51:31 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	display_game_to_window(t_data *env)
 				put_image(env, 'c', j, i);
 			else if (env->position[i][j] == '4')
 				put_image(env, 'h', j, i);
-			else if (env->position[i][j] == 'E')
+			else if (env->position[i][j] == '5')
 				put_image(env, 'e', j, i);
 			else
 				put_image(env, 'b', j, i);
@@ -97,6 +97,27 @@ static void	map_read(char *filename, t_data *env)
 	close(fd);
 }
 
+static void	initiate_position2(char *line, int j, int fd, t_data *env,
+		char **array, int i)
+{
+	while (line[j] && line[j] != '\n' && j < env->width)
+	{
+		array[i][j] = line[j];
+		if (env->total_escape != 1 || env->total_hero != 1
+			|| env->total_collec == 0)
+		{
+			while (line)
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
+			free(env);
+			free_array(array, i);
+			exit(1);
+		}
+		j++;
+	}
+}
 static void	initiate_position(char *filename, t_data *env)
 {
 	int		i;
@@ -113,30 +134,11 @@ static void	initiate_position(char *filename, t_data *env)
 	{
 		array[i] = (char *)malloc((env->width + 1) * sizeof(char));
 		j = 0;
-		while (line[j] && line[j] != '\n' && j < env->width)
-		{
-			array[i][j] = line[j];
-			if (env->total_escape != 1 || env->total_hero != 1
-				|| env->total_collec == 0)
-			{
-				ft_printf("check number of ESACAPE,HERO or COLLECTION");
-				while (line)
-				{
-					free(line);
-					line = get_next_line(fd);
-				}
-				free(env);
-				printf("i = %d\n", i);
-				free_array(array, i);
-				exit(1);
-			}
-			j++;
-		}
+		initiate_position2(line, j, fd, env, array, i);
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
-	ft_printf("Total collec %d\n", env->total_collec);
 	close(fd);
 	env->position = array;
 }
