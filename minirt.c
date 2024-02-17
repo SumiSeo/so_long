@@ -6,72 +6,11 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 15:51:31 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 17:38:41 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	display_game_to_window(t_data *env)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < env->height)
-	{
-		j = 0;
-		while (j < env->width)
-		{
-			if (env->position[i][j] == '1')
-				put_image(env, 's', j, i);
-			else if (env->position[i][j] == '3')
-				put_image(env, 'c', j, i);
-			else if (env->position[i][j] == '4')
-				put_image(env, 'h', j, i);
-			else if (env->position[i][j] == '5')
-				put_image(env, 'e', j, i);
-			else
-				put_image(env, 'b', j, i);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	initiate_characters(t_data *env)
-{
-	int	img_width;
-	int	img_height;
-
-	env->mlx = mlx_init();
-	if (!env->mlx)
-		free(env->mlx);
-	env->win = mlx_new_window(env->mlx, env->width * 50, env->height * 50,
-			"so long ~ ");
-	if (!env->win)
-		mlx_destroy_window(env->mlx, env->win);
-	env->spike = mlx_xpm_file_to_image(env->mlx, "./textures/cloud.xpm",
-			&img_width, &img_height);
-	if (!env->spike)
-		mlx_destroy_image(env->mlx, env->spike);
-	env->collect = mlx_xpm_file_to_image(env->mlx, "./textures/light.xpm",
-			&img_width, &img_height);
-	if (!env->collect)
-		mlx_destroy_image(env->mlx, env->collect);
-	env->hero = mlx_xpm_file_to_image(env->mlx, "./textures/calcifer.xpm",
-			&img_width, &img_height);
-	if (!env->hero)
-		mlx_destroy_image(env->mlx, env->hero);
-	env->bg = mlx_xpm_file_to_image(env->mlx, "./textures/bg.xpm", &img_width,
-			&img_height);
-	if (!env->bg)
-		mlx_destroy_image(env->mlx, env->bg);
-	env->sortie = mlx_xpm_file_to_image(env->mlx, "./textures/sortie.xpm",
-			&img_width, &img_height);
-	if (!env->sortie)
-		mlx_destroy_image(env->mlx, env->sortie);
-}
 
 static void	map_read(char *filename, t_data *env)
 {
@@ -97,48 +36,54 @@ static void	map_read(char *filename, t_data *env)
 	close(fd);
 }
 
-static void	initiate_position2(char *line, int j, int fd, t_data *env,
-		char **array, int i)
+static void	clean_array(char *line, int fd, t_data *env)
 {
-	while (line[j] && line[j] != '\n' && j < env->width)
+	while (line)
 	{
-		array[i][j] = line[j];
-		if (env->total_escape != 1 || env->total_hero != 1
-			|| env->total_collec == 0)
-		{
-			while (line)
-			{
-				free(line);
-				line = get_next_line(fd);
-			}
-			free(env);
-			free_array(array, i);
-			exit(1);
-		}
-		j++;
+		free(line);
+		line = get_next_line(fd);
 	}
+	free(env);
 }
-static void	initiate_position(char *filename, t_data *env)
+
+static void	initiate_position2(char *line, t_data *env, int fd, char **array)
 {
-	int		i;
-	int		fd;
-	char	**array;
-	char	*line;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
-	array = (char **)malloc((env->height) * sizeof(char *));
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
 	while (line && i < env->height)
 	{
 		array[i] = (char *)malloc((env->width + 1) * sizeof(char));
 		j = 0;
-		initiate_position2(line, j, fd, env, array, i);
+		while (line[j] && line[j] != '\n' && j < env->width)
+		{
+			array[i][j] = line[j];
+			if (env->total_escape != 1 || env->total_hero != 1
+				|| env->total_collec == 0)
+			{
+				clean_array(line, fd, env);
+				free_array(array, i);
+				exit(1);
+			}
+			j++;
+		}
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
+}
+
+static void	initiate_position(char *filename, t_data *env)
+{
+	int		fd;
+	char	**array;
+	char	*line;
+
+	array = (char **)malloc((env->height) * sizeof(char *));
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	initiate_position2(line, env, fd, array);
 	close(fd);
 	env->position = array;
 }

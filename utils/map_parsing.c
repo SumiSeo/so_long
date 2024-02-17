@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 17:02:39 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/17 17:05:31 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	count_element(char *line, int j, t_data *env)
 		env->total_collec++;
 	else if (line[j] == 'E')
 	{
-		ft_printf("Found eScape\n");
 		env->total_escape++;
 		env->total_collec++;
 	}
