@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:09:33 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 17:29:04 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:51:54 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,41 @@ void	display_game_to_window(t_data *env)
 		i++;
 	}
 }
+
+void	check_screen_size(t_data *env)
+{
+	int	map_size_x;
+	int	map_size_y;
+	int	i;
+	int	size_x;
+	int	size_y;
+
+	map_size_x = env->width * 50;
+	map_size_y = env->height * 50;
+	mlx_get_screen_size(env->mlx, &size_x, &size_y);
+	if (size_x < map_size_x || size_y < map_size_y)
+	{
+		ft_printf("Screen is to small for display the map ");
+		mlx_destroy_display(env->mlx);
+		free(env->mlx);
+		i = 0;
+		while (i < env->height)
+		{
+			free(env->position[i]);
+			i++;
+		}
+		free(env->position);
+		free(env);
+		exit(0);
+	}
+}
 void	initiate_characters(t_data *env)
 {
-	int img_width;
-	int img_height;
+	int	img_width;
+	int	img_height;
 
 	env->mlx = mlx_init();
+	check_screen_size(env);
 	if (!env->mlx)
 		free(env->mlx);
 	env->win = mlx_new_window(env->mlx, env->width * 50, env->height * 50,

@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 17:38:41 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:36:24 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	map_read(char *filename, t_data *env)
 	if (fd == -1)
 	{
 		free(env);
-		exit(1);
+		exit(0);
 	}
 	line = get_next_line(fd);
 	env->width = ft_strlen(line) - 1;

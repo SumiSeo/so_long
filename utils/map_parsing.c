@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 17:05:31 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:04:18 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	map_parse(char *filename, t_data *env)
 {
 	int		fd;
 	char	*line;
+
 
 	initiate_env(env);
 	fd = open(filename, O_RDONLY);
