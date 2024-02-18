@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/18 19:04:18 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:55:38 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	count_element(char *line, int j, t_data *env)
 	else if (line[j] != '0' && line[j] != '1')
 		error_is("The map element is not correct");
 }
+
 void	map_parse_loop(char *line, t_data *env, int fd)
 {
 	int	i;
@@ -89,11 +90,7 @@ void	map_parse_loop(char *line, t_data *env, int fd)
 					&& line[j] != '1') || (j == 0 && line[j] != '1')
 				|| (j == env->width - 1 && line[j] != '1'))
 			{
-				while (line)
-				{
-					free(line);
-					line = get_next_line(fd);
-				}
+				map_parse_loop_free(line, fd);
 				free(env);
 				exit(1);
 			}
@@ -105,11 +102,11 @@ void	map_parse_loop(char *line, t_data *env, int fd)
 		line = get_next_line(fd);
 	}
 }
+
 void	map_parse(char *filename, t_data *env)
 {
 	int		fd;
 	char	*line;
-
 
 	initiate_env(env);
 	fd = open(filename, O_RDONLY);

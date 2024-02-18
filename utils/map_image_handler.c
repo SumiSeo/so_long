@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:09:33 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/18 19:51:54 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:56:22 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	check_screen_size(t_data *env)
 		exit(0);
 	}
 }
+
 void	initiate_characters(t_data *env)
 {
 	int	img_width;
@@ -87,4 +88,13 @@ void	initiate_characters(t_data *env)
 			&img_height);
 	env->sortie = mlx_xpm_file_to_image(env->mlx, "./textures/sortie.xpm",
 			&img_width, &img_height);
+}
+
+void	map_parse_loop_free(char *line, int fd)
+{
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 }

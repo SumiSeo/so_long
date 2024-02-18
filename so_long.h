@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:35:29 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/18 19:00:07 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/18 19:56:01 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void		control_element(char element, t_data *env, int x, int y);
 void		display_game_to_window(t_data *env);
 void		initiate_characters(t_data *env);
 void		check_screen_size(t_data *env);
+void		map_parse_loop_free(char *line, int fd);
 #endif
