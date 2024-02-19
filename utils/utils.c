@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:08:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 15:43:02 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:11:46 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	find_cur_position(t_data *env)
 		i++;
 	}
 	env->count++;
-	ft_printf("Calcifer is moving this much : %d\n", env->count);
+	if (env->count > 1)
+		ft_printf("Calcifer is moving this much : %d\n", env->count);
 }
