@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/18 19:36:24 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:26:32 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	initiate_position2(char *line, t_data *env, int fd, char **array)
 			if (env->total_escape != 1 || env->total_hero != 1
 				|| env->total_collec == 0)
 			{
+				error_is("You don't have correct value of hero/escape/collect");
 				clean_array(line, fd, env);
 				free_array(array, i);
 				exit(1);

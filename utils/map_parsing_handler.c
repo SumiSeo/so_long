@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:26:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/17 15:10:03 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:17:31 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ void	person_is(int i, int j, t_data *env)
 
 void	error_is(char *msg)
 {
-	ft_printf(msg);
-	exit(1);
+	ft_printf("ERROR\n");
+	ft_printf("Because %s\n", msg);
+	exit(0);
 }
 
 void	initiate_env(t_data *env)
