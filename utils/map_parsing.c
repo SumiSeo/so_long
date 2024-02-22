@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 13:26:15 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:32:13 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	is_map_valid(char **tab, t_data *env)
 	find_route(tab, env, env->cur_x, env->cur_y);
 	if (env->collected_collec != env->total_collec)
 	{
+		error_is("Your hero can not collect all items. Please check you map elements");
 		while (i < env->height)
 		{
 			free(env->position[i]);
