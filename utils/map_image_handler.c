@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:09:33 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/18 19:56:22 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:48:34 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_screen_size(t_data *env)
 	mlx_get_screen_size(env->mlx, &size_x, &size_y);
 	if (size_x < map_size_x || size_y < map_size_y)
 	{
-		ft_printf("Screen is to small for display the map ");
+		ft_printf("Screen is small for display the map.");
 		mlx_destroy_display(env->mlx);
 		free(env->mlx);
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 14:42:36 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 14:46:53 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	is_map_valid(char **tab, t_data *env)
 	find_route(tab, env, env->cur_x, env->cur_y);
 	if (env->collected_collec != env->total_collec)
 	{
-		error_is("Your hero can not collect all items. Check  map elements");
+		error_is("Your hero can not collect all items. Check  map elements.");
 		while (i < env->height)
 		{
 			free(env->position[i]);
@@ -73,7 +73,7 @@ void	count_element(char *line, int j, t_data *env)
 	else if (line[j] == 'P')
 		env->total_hero++;
 	else if (line[j] != '0' && line[j] != '1')
-		error_is("The map element is not correct");
+		error_is("The map element is not correct.");
 }
 
 void	map_parse_loop(char *line, t_data *env, int fd)
