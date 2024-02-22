@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 13:20:35 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:23:39 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	initiate_position2(char *line, t_data *env, int fd, char **array)
 		while (line[j] && line[j] != '\n' && j < env->width)
 		{
 			array[i][j] = line[j];
-	
 			if (env->total_escape != 1 || env->total_hero != 1
 				|| env->total_collec < 2)
 			{
