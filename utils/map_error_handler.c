@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:41:20 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 17:40:00 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 17:53:00 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	check_correct_item(t_data *env)
 {
 	if (env->total_escape != 1)
 		error_is("You don't have correct value of escape.");
-	if (env->total_hero != 1)
+	else if (env->total_hero != 1)
 		error_is("You don't have correct value of hero.");
-	if (env->total_collec < 2)
+	else if (env->total_collec < 2 || env->total_escape != 1)
 		error_is("You don't have correct value of collect.");
 }
 
