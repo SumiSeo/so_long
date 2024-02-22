@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:16:32 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 13:23:39 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 17:34:43 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,22 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		filename = argv[1];
-		env = (t_data *)malloc(sizeof(t_data));
-		if (!env)
-			free(env);
-		map_read(filename, env);
-		map_parse(filename, env);
-		initiate_position(filename, env);
-		find_cur_position(env);
-		is_map_valid(env->position, env);
-		initiate_characters(env);
-		display_game_to_window(env);
-		mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
-		mlx_hook(env->win, 17, 0, &mouse_event, env);
-		mlx_loop(env->mlx);
+		if (is_fileformat_correct(filename))
+		{
+			env = (t_data *)malloc(sizeof(t_data));
+			if (!env)
+				free(env);
+			map_read(filename, env);
+			map_parse(filename, env);
+			initiate_position(filename, env);
+			find_cur_position(env);
+			is_map_valid(env->position, env);
+			initiate_characters(env);
+			display_game_to_window(env);
+			mlx_hook(env->win, X_EVENT_KEY_RELEASE, 1L << 0, &key_press, env);
+			mlx_hook(env->win, 17, 0, &mouse_event, env);
+			mlx_loop(env->mlx);
+		}
 	}
 	return (0);
 }

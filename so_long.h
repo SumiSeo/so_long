@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:35:29 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 12:47:37 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 17:36:27 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ void		initiate_characters(t_data *env);
 void		check_screen_size(t_data *env);
 void		map_parse_loop_free(char *line, int fd);
 void		check_correct_item(t_data *env);
+int			is_fileformat_correct(char *file);
+char		*my_strchr(const char *s, int c);
 
 #endif
