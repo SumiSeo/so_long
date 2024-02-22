@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:26:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 12:54:22 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:26:28 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	error_is(char *msg)
 {
-	ft_printf("ERROR\n");
-	ft_printf("Because %s\n", msg);
+	ft_printf("***ERROR***\n");
+	ft_printf("Because... %s\n", msg);
 	exit(0);
 }
 

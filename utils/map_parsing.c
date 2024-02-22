@@ -6,7 +6,7 @@
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:14:37 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 13:15:54 by sumseo           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:26:15 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	map_parse_loop(char *line, t_data *env, int fd)
 					&& line[j] != '1') || (j == 0 && line[j] != '1')
 				|| (j == env->width - 1 && line[j] != '1'))
 			{
+				error_is("Check ! There is somethings else in the wall");
 				map_parse_loop_free(line, fd);
 				free(env);
 				exit(1);
