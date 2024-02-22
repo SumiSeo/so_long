@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing_handler.c                              :+:      :+:    :+:   */
+/*   map_error_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumseo <sumseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 19:26:03 by sumseo            #+#    #+#             */
-/*   Updated: 2024/02/22 12:54:22 by sumseo           ###   ########.fr       */
+/*   Created: 2024/02/22 12:41:20 by sumseo            #+#    #+#             */
+/*   Updated: 2024/02/22 13:21:22 by sumseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	error_is(char *msg)
+void	check_correct_item(t_data *env)
 {
-	ft_printf("ERROR\n");
-	ft_printf("Because %s\n", msg);
-	exit(0);
-}
-
-void	initiate_env(t_data *env)
-{
-	env->count = 0;
-	env->total_collec = 0;
-	env->total_escape = 0;
-	env->total_hero = 0;
-	env->collected_collec = 0;
+	if (env->total_escape != 1)
+		error_is("You don't have correct value of escape");
+	if (env->total_hero != 1)
+		error_is("You don't have correct value of hero");
+	if (env->total_collec < 2)
+		error_is("You don't have correct value of collect");
 }
